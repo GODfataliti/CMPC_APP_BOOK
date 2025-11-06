@@ -1,0 +1,15 @@
+# Dependencias
+node_modules
+
+# Builds
+dist
+dist-ssr
+
+# Variables
+.DS_Store
+*.local
+count.txt
+.env
+.nitro
+.tanstack
+.wrangler

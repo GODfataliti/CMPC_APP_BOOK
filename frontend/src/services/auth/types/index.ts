@@ -1,0 +1,1 @@
+export type { ResponseLogin } from './response-login.type'
