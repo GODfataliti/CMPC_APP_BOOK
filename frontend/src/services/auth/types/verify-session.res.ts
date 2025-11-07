@@ -1,17 +1,7 @@
-export interface Session {
-  ID: string;
-  token: string;
-  rut: string;
-  createdAt: string;
-  expiredAt: string;
-}
-
-export interface VerifySessionRES {
-  session: Session;
-}
+import type { Session } from "@/types";
 
 export interface VerifySessionResponse {
-  data: VerifySessionRES;
+  data: Session;
   ERRORCODE: number;
   GLOSADESC: string;
   status: number;

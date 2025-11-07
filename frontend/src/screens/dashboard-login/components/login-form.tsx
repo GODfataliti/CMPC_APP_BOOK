@@ -13,6 +13,7 @@ import { formatRut } from '@/utils'
 import { Badge } from "@/components/ui/badge"
 import { login } from '@/services/auth/login'
 import { VITE_VERSION } from '@/config'
+import { sessionStore, userStore } from "@/stores"
 
 
 interface Props {
@@ -27,6 +28,8 @@ export function LoginForm(props: Props) {
   const [active, setActive] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { loadUser } = userStore();
+  const { loadSession } = sessionStore();
 
   const navigate = useNavigate()
 
@@ -74,8 +77,8 @@ export function LoginForm(props: Props) {
         toast.success('Inicio de sesión exitoso');
         const { data } = res;
 
-        // createSession(data.token);
-        // loadUser(data.id, data.rut, data.nombre, data.email, data.isAdmin);
+        loadSession(data.token, data.RUT);
+        loadUser(data);
         // -- Redirigir al dashboard.
         navigate({
           to: '/dashboard',

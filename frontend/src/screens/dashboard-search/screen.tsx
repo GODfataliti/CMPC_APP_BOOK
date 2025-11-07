@@ -68,7 +68,7 @@ export default function Screen() {
                     htmlFor="RUT"
                     className="text-sm font-semibold"
                   >
-                    RUT del prospecto
+                    BUSCARDOR
                   </Label>
 
                   <div className="flex flex-col md:flex-row items-center space-x-2 space-y-4 md:space-y-0">
@@ -76,23 +76,18 @@ export default function Screen() {
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">
                         <Search className="h-4 w-4" />
                       </span>
-                      {/* <Input
-                        id="RUT"
+                      <Input
+                        id="NAME"
                         type="text"
                         className="w-full pl-10 transition-none md:transition-all ease-in-out duration-300"
                         inputMode="text"
-                        placeholder="Ej: 12345678-9"
-                        onInput={onInputRut}
-                        onChange={onChangeRut}
-                        value={rut}
-                        maxLength={12}
+                        maxLength={35}
                         minLength={2}
                         autoComplete="on"
                         autoFocus
                         required
-                        style={{ viewTransitionName: 'input-rut' }}
                         disabled={isLoading}
-                      /> */}
+                      />
                     </div>
 
                     <Button

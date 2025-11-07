@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import DashboardLogin from '@/screens/dashboard-login/screen';
 import { sessionStore, userStore } from '@/stores';
 import { verifySession } from '@/services/auth';
+import NotFoundPage from '@/screens/not-found/screen';
 
 export const Route = createFileRoute('/')({
   beforeLoad: async () => {
@@ -28,4 +29,5 @@ export const Route = createFileRoute('/')({
     }
   },
   component: DashboardLogin,
+  notFoundComponent: NotFoundPage,
 });

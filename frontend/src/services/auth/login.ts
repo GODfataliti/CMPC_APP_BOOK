@@ -26,10 +26,23 @@ export async function login(rut: string, password: string): Promise<ResponseLogi
       body: JSON.stringify(payload),
       signal,
     }
-    const response: ResponseLogin = await fetch(`${VITE_API_URL}/auth/login`, options)
-      .then((res) => res.json())
-    if (response.status >= 400) {
-      throw new Error(response.GLOSADESC);
+    // const response: ResponseLogin = await fetch(`${VITE_API_URL}/auth/login`, options)
+    //   .then((res) => res.json())
+    // if (response.status >= 400) {
+    //   throw new Error(response.GLOSADESC);
+    // }
+
+    const response = {
+      status: 200,
+      timestamp: '2025',
+      GLOSADESC: 'Login success',
+      ERRORCODE: 0,
+      data: {
+        ID: 'asd123',
+        name: 'Jose G',
+        RUT: rut,
+        token: '123asd123asd123'
+      }
     }
 
     return response;
