@@ -1,0 +1,38 @@
+{
+  "books": [
+    {
+      "ID": "aaaa",
+      "ISBN": "9788466658898",
+      "name": "El imperio final",
+      "author": "Brandon Sanderson",
+      "categories": ["Fantasia",""],
+      "publisher": "Ediciones B",
+      "realease": "2016",
+      "image": "",
+      "availability": true
+    },
+    {
+      "ID": "aaaa",
+      "ISBN": "9788466658904",
+      "name": "El pozo de la ascension",
+      "author": "Brandon Sanderson",
+      "categories": ["Fantasia",""],
+      "publisher": "Nova",
+      "realease": "2016",
+      "image": "",
+      "availability": true
+    },
+    {
+      "ID": "aaaa",
+      "ISBN": "9788490705834",
+      "name": "Elantris",
+      "author": "Brandon Sanderson",
+      "categories": ["Fantasia",""],
+      "publisher": "B Maxi",
+      "realease": "2016",
+      "image": "",
+      "availability": true
+    },
+    {}
+  ] 
+}

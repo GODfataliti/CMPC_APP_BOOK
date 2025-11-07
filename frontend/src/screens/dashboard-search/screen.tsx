@@ -1,9 +1,10 @@
-import { useNavigate, useRouterState } from "@tanstack/react-router";
+import { useLoaderData, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Label } from "@radix-ui/react-label";
-import { Search } from "lucide-react";
+import { Book, Check, Search } from "lucide-react";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import type { ChangeEvent, FormEvent } from "react";
+import { BookList } from "./components/book-list";
 import { ModeToggle } from "@/components/mode-toggle";
 // import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -12,17 +13,24 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Checkbox } from "@/components/ui/checkbox";
+import { booksStore } from "@/stores";
+import { BookRequested } from "./components/book-search";
 
 export default function Screen() {
   // -- 1. Manejo del estado.
-  const [search, setSearch] = useState<string>('');
+  const data = useLoaderData({ from: '/dashboard' });
+  const { loadRequested, clearParams } = booksStore()
   const { isLoading } = useRouterState();
-  const navigate = useNavigate();
 
   // -- 2. Ciclo de vida.
+  useEffect(() => {
+    clearParams();
+    loadRequested(data?.searches, data?.stats, data?.page, data?.pages);
+  }, [data])
   // -- 3. Metodos.
   const onClean = () => {
-    setSearch('')
+    setGlobalSearch('')
   }
 
   const onSearch = () => {
@@ -30,7 +38,7 @@ export default function Screen() {
       // -- Validar form.
     } catch (err: any) {
       console.error(err);
-      toast.error(err?.message ?? 'Problemas con el rut ingresado');
+      toast.error(err?.message ?? 'Problemas con la busqueda ingresado');
       onClean();
     }
   }
@@ -56,51 +64,15 @@ export default function Screen() {
           </div>
         </div>
       </header>
-
-      <div className="p-2 m-2 transition-all duration-300" style={{ viewTransitionName: 'result-panel' }}>
+      <div className="p-2 m-2 transition duration-300" style={{ viewTransitionName: 'result-panel' }}>
         <div className="container mx-auto">
           <div className="w-full">
-            {/* -- Barra de búsqueda -- */}
-            <div className="w-full pt-4">
-              <Card className="max-w-2xl mx-auto p-4" style={{ viewTransitionName: 'container-form' }}>
-                <form className="flex flex-col space-y-2" onSubmit={(e) => e.preventDefault()}>
-                  <Label
-                    htmlFor="RUT"
-                    className="text-sm font-semibold"
-                  >
-                    BUSCARDOR
-                  </Label>
+            
+            {/* -- Buscador -- */}
+            <BookRequested />
 
-                  <div className="flex flex-col md:flex-row items-center space-x-2 space-y-4 md:space-y-0">
-                    <div className="relative flex-1 w-full">
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">
-                        <Search className="h-4 w-4" />
-                      </span>
-                      <Input
-                        id="NAME"
-                        type="text"
-                        className="w-full pl-10 transition-none md:transition-all ease-in-out duration-300"
-                        inputMode="text"
-                        maxLength={35}
-                        minLength={2}
-                        autoComplete="on"
-                        autoFocus
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    <Button
-                      className="w-full md:w-auto"
-                      onClick={onSearch}
-                      disabled={isLoading}
-                    >
-                      Buscar
-                    </Button>
-                  </div>
-                </form>
-              </Card>
-            </div>
+            {/* -- Listado de libros --  */}
+            <BookList />
           </div>
         </div>
       </div>
