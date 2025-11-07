@@ -56,19 +56,21 @@ export function BookList(props: Props) {
     )
   }
   return (
-    <div className={cn("grid p-0 lg:grid-cols-3 md:grid-cols-2 gap-2.5 sm:grid-cols-2 pt-4", className)} {...props}>
+    <div>
       {/* -- Paginación -- */}
       <BookPagination />
+      <div className={cn("grid p-0 lg:grid-cols-3 md:grid-cols-2 gap-2.5 sm:grid-cols-2 pt-4", className)} {...props}>
 
-      {/* -- Consultas -- */}
-      <ScrollArea className="h-[calc(100vh-200px)] w-full items-center">
-        {books.map((book: any, index: number) => {
-          return (
-            <BookCard book={book} index={index} key={index} />
-          )
-        })}
-      </ScrollArea>
+        {/* -- Consultas -- */}
+        <ScrollArea className="h-[calc(100vh-200px)] w-full items-center">
+          {books?.map((book: any, index: number) => {
+            return (
+              <BookCard book={book} index={index} key={index} />
+            )
+          })}
+        </ScrollArea>
 
+      </div>
       {/* -- Paginación -- */}
       <BookPagination />
     </div>

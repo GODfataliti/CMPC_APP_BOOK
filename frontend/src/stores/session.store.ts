@@ -6,6 +6,7 @@ import type { StateCreator } from 'zustand';
 // -- Definición del store.
 export interface SessionState {
   sessionID: string;
+  token: string;
   RUT: string;
   createdAt: string;
   expiredAt: string;
@@ -16,17 +17,20 @@ export interface SessionState {
 
 const initial: StateCreator<SessionState> = (set): SessionState => ({
   sessionID: '',
+  token: '',
   RUT: '',
   createdAt: '',
   expiredAt: '',
 
   loadSession: (token: string, RUT: string) => set(() => ({
     sessionID: token,
+    token: token,
     RUT: RUT,
   })),
 
   removeSession: () => set(() => ({
     sessionID: '',
+    token: '',
     RUT: '',
     createdAt: '',
     expiredAt: '',

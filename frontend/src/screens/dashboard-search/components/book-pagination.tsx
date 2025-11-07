@@ -59,7 +59,7 @@ export function BookPagination() {
   }
 
   return (
-    <Pagination className="w-full flex flex-col justify-center items-center py-2">
+    <Pagination className="w-full flex flex-col justify-center items-center py-1">
       <PaginationContent>
         <PaginationItem>
           {page === 1 ? (

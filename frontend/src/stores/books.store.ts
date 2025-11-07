@@ -10,6 +10,13 @@ export interface BookState {
   page: number;
   pages: number;
 
+  general: string;
+  title: string;
+  category: string;
+  author: string;
+  publisher: string;
+  available: boolean;
+
   loadRequested: (books: Array<Book>, page: number, pages: number) => void;
   clearRequested: () => void;
   loadParams: (firstName: string, secondName: string, firstSurname: string, secondSurname: string) => void
@@ -20,6 +27,13 @@ const initial: StateCreator<BookState> = (set): BookState => ({
   books: [],
   page: 1,
   pages: 1,
+  general: '',
+  title: '',
+  category: '',
+  author: '',
+  publisher: '',
+  available: false,
+
 
   loadRequested: (books: Array<Book>, page: number, pages: number) => {
     set({ books, page, pages });

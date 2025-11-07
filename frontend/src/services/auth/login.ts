@@ -28,6 +28,7 @@ export async function login(rut: string, password: string): Promise<ResponseLogi
     }
     // const response: ResponseLogin = await fetch(`${VITE_API_URL}/auth/login`, options)
     //   .then((res) => res.json())
+    
     // if (response.status >= 400) {
     //   throw new Error(response.GLOSADESC);
     // }

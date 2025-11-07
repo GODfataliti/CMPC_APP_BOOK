@@ -10,3 +10,11 @@ export interface Book {
   image: string;
   availability: boolean;
 }
+
+export interface SearchBook {
+  title: string;
+  category: string;
+  author: string;
+  publisher: string;
+  available: boolean;
+}

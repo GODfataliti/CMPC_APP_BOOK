@@ -1,9 +1,11 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
 import { toast } from 'sonner'
+import type { BookResultsData } from '@/services/book/get-books.type.res'
 import Dashboard from '@/screens/dashboard/screen'
 import { verifySession } from '@/services/auth'
 import { sessionStore, userStore } from '@/stores'
 import NotFoundPage from '@/screens/not-found/screen'
+import { getBooksByParams } from '@/services/book'
 
 export const Route = createFileRoute('/dashboard')({
   beforeLoad: async ({ abortController }) => {
@@ -35,6 +37,17 @@ export const Route = createFileRoute('/dashboard')({
     });
 
     return
+  },
+  loader: async ({ abortController, location }) => {
+    const search: any = location.search;
+    const page: number = search?.page || 1;
+
+    const payload = {
+      page,
+    }
+
+    const result: BookResultsData = await getBooksByParams(payload);
+    return result;
   },
   component: DashboardLayout,
   notFoundComponent: NotFoundPage,

@@ -1,21 +1,12 @@
-import { useLoaderData, useNavigate, useRouterState } from "@tanstack/react-router";
-import { Label } from "@radix-ui/react-label";
-import { Book, Check, Search } from "lucide-react";
-import { toast } from "sonner";
-import { useEffect, useState } from "react";
-// import type { ChangeEvent, FormEvent } from "react";
+import { useLoaderData, useRouterState } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { BookList } from "./components/book-list";
+import { BookRequested } from "./components/book-search";
 import { ModeToggle } from "@/components/mode-toggle";
-// import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Checkbox } from "@/components/ui/checkbox";
 import { booksStore } from "@/stores";
-import { BookRequested } from "./components/book-search";
 
 export default function Screen() {
   // -- 1. Manejo del estado.
@@ -26,23 +17,9 @@ export default function Screen() {
   // -- 2. Ciclo de vida.
   useEffect(() => {
     clearParams();
-    loadRequested(data?.searches, data?.stats, data?.page, data?.pages);
+    loadRequested(data?.books, data?.page, data?.pages);
   }, [data])
   // -- 3. Metodos.
-  const onClean = () => {
-    setGlobalSearch('')
-  }
-
-  const onSearch = () => {
-    try {
-      // -- Validar form.
-    } catch (err: any) {
-      console.error(err);
-      toast.error(err?.message ?? 'Problemas con la busqueda ingresado');
-      onClean();
-    }
-  }
-
   // -- 4. Render.
   return (
     <>
