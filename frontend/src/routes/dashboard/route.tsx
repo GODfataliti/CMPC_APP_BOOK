@@ -39,15 +39,20 @@ export const Route = createFileRoute('/dashboard')({
     return
   },
   loader: async ({ abortController, location }) => {
-    const search: any = location.search;
-    const page: number = search?.page || 1;
+    try {
+      const search: any = location.search;
+      const page: number = search?.page || 1;
 
-    const payload = {
-      page,
+      const payload = {
+        page,
+      }
+
+      const result: BookResultsData = await getBooksByParams(payload);
+      return result;
+    } catch (err) {
+      abortController.abort();
+      return { books: [], page: 1, pages: 1 }
     }
-
-    const result: BookResultsData = await getBooksByParams(payload);
-    return result;
   },
   component: DashboardLayout,
   notFoundComponent: NotFoundPage,

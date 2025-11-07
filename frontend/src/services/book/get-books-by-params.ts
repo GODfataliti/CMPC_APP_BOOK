@@ -28,7 +28,7 @@ export async function getBooksByParams(props: Params): Promise<BookResultsData> 
         },
       };
 
-      const response: GetBooksRES = await fetch(`${VITE_API_URL}/search-books}?${queryParams.toString()}`, options)
+      const response: GetBooksRES = await fetch(`${VITE_API_URL}/search-books?${queryParams.toString()}`, options)
         .then((res) => res.json());
 
       if (response.status >= 400) {
