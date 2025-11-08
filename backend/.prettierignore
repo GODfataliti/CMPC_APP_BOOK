@@ -1,0 +1,20 @@
+# Environment vars.
+.env
+.env.*
+
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+
+# Docker
+Dockerfile
+
+# Config files
+jest.config.ts
+nest-cli.json
+eslint.config.mjs
+tsconfig.build.json
+tsconfig.json
+
+# Editor
+.vscode/

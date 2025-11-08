@@ -1,0 +1,15 @@
+# Environment vars.
+.env
+.env.*
+!.env.template
+
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+
+# Build
+dist/
+
+# Editor
+.vscode/
