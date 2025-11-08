@@ -1,0 +1,75 @@
+services:
+  # * ------------------------------
+  # *   Books Database
+  # * ------------------------------
+  books-db:
+    image: postgres:14.18
+    container_name: books-db
+    ports:
+      - "${BOOKS_DATABASE_PORT}:5432"
+    networks:
+      - cmpc-net
+    volumes:
+      - pgdata_books:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${BOOKS_DATABASE_NAME}
+      - POSTGRES_USER=${BOOKS_DATABASE_USER}
+      - POSTGRES_PASSWORD=${BOOKS_DATABASE_PASSWORD}
+
+  # * ------------------------------
+  # *   Frontend
+  # * ------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "${FRONTEND_PORT}:3174"
+    networks:
+      - cmpc-net
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+    command: npm run dev
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend/src
+          target: /usr/src/app/src
+          ignore:
+            - node_modules
+    environment:
+      - PORT=${FRONTEND_PORT}
+
+  # * ------------------------------
+  # *   API Books
+  # * ------------------------------
+  api-books:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: api-books
+    ports:
+      - "${API_BOOKS_PORT}:8080"
+    networks:
+      - cmpc-net
+    volumes:
+      - ./api-books/src:/usr/src/app/src
+    command: npm run start:dev
+    develop:
+      watch:
+        - action: sync
+          path: ./api-books/src
+          target: /usr/src/app/src
+          ignore:
+            - node_modules
+    environment:
+      - PORT=${API_BOOKS_PORT}
+
+networks:
+  cmpc-net:
+    name: cmpc-net
+    driver: bridge
+
+volumes:
+  pgdata_books:

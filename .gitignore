@@ -1,0 +1,4 @@
+# * -- Environment vars
+.env
+.env.*
+!.env.template

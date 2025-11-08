@@ -1,15 +1,22 @@
-# Dependencias
+# Dependencies
 node_modules
+pnpm-lock.yaml
+yarn.lock
 
 # Builds
 dist
 dist-ssr
 
-# Variables
+# Environment vars.
 .DS_Store
 *.local
 count.txt
 .env
+.env.*
+!.env.template
 .nitro
 .tanstack
 .wrangler
+
+# Editor
+.vscode/
