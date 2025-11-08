@@ -1,1 +1,3 @@
 export { getBooksByParams } from './get-books-by-params';
+export { createBook } from './create-book';
+export { updateBook } from './update-book';

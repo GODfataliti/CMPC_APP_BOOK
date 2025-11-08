@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
 import { toast } from 'sonner'
-import type { BookResultsData } from '@/services/book/get-books.type.res'
+import type { BookResultsData } from '@/services/book/types/get-books.type.res'
 import Dashboard from '@/screens/dashboard/screen'
 import { verifySession } from '@/services/auth'
 import { sessionStore, userStore } from '@/stores'

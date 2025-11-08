@@ -2,12 +2,13 @@ import { useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search } from "lucide-react";
 import type { SearchBook } from "@/types";
+import type { QueryParams } from "@/services/book/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { booksStore } from "@/stores";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { getBooksByParams } from "@/services/book";
 
 export function BookRequested() {
   // 1. Manejo de estado.
@@ -21,7 +22,7 @@ export function BookRequested() {
     category: '',
     author: '',
     publisher: '',
-    available: false,
+    available: null,
   });
 
 
@@ -29,22 +30,24 @@ export function BookRequested() {
   // 3. Metodos.
   const onSearch = async() => {
     setDisabled(true);
-    const values = globalSearch.split(' ')
-    const search: any = {
+    const search: QueryParams = {
       page: 1,
       // PARAMS
-      firstName: values[0] ?? '',
-      secondName: values[1] ?? '',
-      firstSurname: values[2] ?? '',
-      secondSurname: values[3] ?? '',
+      isAdvanceSearch: isAdvancedSearch,
+      general: globalSearch,
+      title: advanceSearch.title,
+      category: advanceSearch.category,
+      author: advanceSearch.author,
+      publisher: advanceSearch.publisher,
+      available: advanceSearch.available,
     }
     setDisabled(false);
-    // loadParams(search?.firstName ?? '', search.secondName ?? '', search.firstSurname ?? '', search.secondSurname ?? '')
-    // await getByCompanyAndParams(companyID, search).then((res) => {
-    //   loadRequested(res?.searches, res?.stats, res?.page, res?.pages);
-    // }).finally(() => {
-    //   setDisabled(false);
-    // })
+    loadParams(search.general ?? '', search.title ?? '', search.category ?? '', search.author ?? '', search.publisher ?? '', search.available ?? null);
+    await getBooksByParams(search).then((res) => {
+      loadRequested(res.books, res.page, res.pages);
+    }).finally(() => {
+      setDisabled(false);
+    })
   }
   
   const onClean = () => {
@@ -52,10 +55,10 @@ export function BookRequested() {
     setGlobalSearch('');
     setAdvanceSearch({
       title: '',
-    category: '',
-    author: '',
-    publisher: '',
-    available: false,
+      category: '',
+      author: '',
+      publisher: '',
+      available: null,
     });
   }
 
@@ -108,16 +111,16 @@ export function BookRequested() {
               onChange={(e) => setAdvanceSearch({ ...advanceSearch, publisher: e.target.value })}
             />
             <div className="flex gap-2 m-2 items-center">
-              <Checkbox
-                checked={advanceSearch.available}
-                onCheckedChange={(checked) => setAdvanceSearch({ ...advanceSearch, available: checked as boolean })}
-                id="search-isbn" />
-              <Label
-                htmlFor="text-search"
-                className="text-sm font-semibold"
-              >
-                Disponible
-              </Label>
+              <Select>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Disponibilidad" />
+                </SelectTrigger>
+                <SelectContent onSelect={(e) => setAdvanceSearch({ ...advanceSearch, available: e.target.value === "null" ? null : e.target.value === "true" ? true : false })}>
+                  <SelectItem value="null">Todos</SelectItem>
+                  <SelectItem value="true">Disponibles</SelectItem>
+                  <SelectItem value="false">Agotados</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         ) : (
@@ -137,7 +140,7 @@ export function BookRequested() {
             onClick={onSearch}
             variant="default"
             className="flex items-center gap-2"
-            disabled={(!disabled)}
+            // disabled={(!disabled)}
           >
             <Search className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
             Buscar

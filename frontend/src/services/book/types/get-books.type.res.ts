@@ -13,3 +13,14 @@ export interface BookResultsData {
   page: number;
   pages: number;
 }
+
+export interface QueryParams {
+  page?: number;
+  isAdvanceSearch?: boolean;
+  general?: string;
+  title?: string;
+  category?: string;
+  author?: string;
+  publisher?: string;
+  available?: boolean | null;
+}

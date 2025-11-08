@@ -16,5 +16,5 @@ export interface SearchBook {
   category: string;
   author: string;
   publisher: string;
-  available: boolean;
+  available: boolean | null;
 }

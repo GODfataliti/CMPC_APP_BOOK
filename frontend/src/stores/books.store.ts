@@ -15,11 +15,11 @@ export interface BookState {
   category: string;
   author: string;
   publisher: string;
-  available: boolean;
+  available: boolean | null;
 
   loadRequested: (books: Array<Book>, page: number, pages: number) => void;
   clearRequested: () => void;
-  loadParams: (firstName: string, secondName: string, firstSurname: string, secondSurname: string) => void
+  loadParams: (general: string, title: string, category: string, author: string, publisher: string, available: boolean | null) => void
   clearParams: () => void;
 }
 
@@ -32,7 +32,7 @@ const initial: StateCreator<BookState> = (set): BookState => ({
   category: '',
   author: '',
   publisher: '',
-  available: false,
+  available: null,
 
 
   loadRequested: (books: Array<Book>, page: number, pages: number) => {
@@ -45,11 +45,25 @@ const initial: StateCreator<BookState> = (set): BookState => ({
       pages: 1,
     });
   },
-  loadParams: (firstName: string, secondName: string, firstSurname: string, secondSurname: string) => {
-    set({});
+  loadParams: (general: string, title: string, category: string, author: string, publisher: string, available: boolean | null) => {
+    set({
+      general,
+      title,
+      category,
+      author,
+      publisher,
+      available,
+    });
   },
   clearParams: () => {
-    set({})
+    set({
+      general: '',
+      title: '',
+      category: '',
+      author: '',
+      publisher: '',
+      available: null,
+    })
   },
 });
 
