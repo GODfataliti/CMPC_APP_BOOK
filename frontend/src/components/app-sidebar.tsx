@@ -6,7 +6,6 @@ import {
   Building2,
   LifeBuoy,
   Logs,
-  UserSearch,
 } from "lucide-react"
 import { Link, useRouterState } from "@tanstack/react-router"
 import { NavUser } from "./nav-user"

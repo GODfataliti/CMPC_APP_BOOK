@@ -7,6 +7,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/co
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { booksStore } from "@/stores";
+import { CreateBook } from "./components/create-book";
 
 export default function SearchPage() {
   // -- 1. Manejo del estado.
@@ -37,6 +38,7 @@ export default function SearchPage() {
           </Breadcrumb>
 
           <div className="ml-auto flex items-center gap-2">
+            <CreateBook /> 
             <ModeToggle />
           </div>
         </div>

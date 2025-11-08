@@ -25,6 +25,7 @@ export interface BookDetail {
   price?: string;
   rating?: string;
   stock?: number;
+  summary?: string;
 }
 
 export interface SearchBook {

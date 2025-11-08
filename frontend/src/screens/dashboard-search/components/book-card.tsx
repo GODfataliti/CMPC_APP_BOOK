@@ -1,10 +1,10 @@
 import { BookMarked } from "lucide-react";
-import { useLoaderData, useNavigate, useParams } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import type { Book } from "@/types";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
 
 interface Props {
   index?: number;
@@ -26,6 +26,8 @@ export default function BookCard(props: Props) {
       case true:
         return setStatusBg('bg-green-500')
       case false:
+        return setStatusBg('bg-red-500')
+      default:
         return setStatusBg('bg-red-500')
     }
   }
@@ -55,7 +57,7 @@ export default function BookCard(props: Props) {
     >
       <CardTitle className="flex flex-row items-center justify-center md:justify-start gap-1 md:mx-4">
         <BookMarked className="h-5 w-5" />
-        <h1>El imperio final</h1>
+        <h1>{book?.name}</h1>
       </CardTitle>
 
       <CardContent className="pb-2 m-0">
@@ -69,12 +71,13 @@ export default function BookCard(props: Props) {
             <div>
               <p className="text-sm opacity-50">Detalles</p>
               <div className="flex flex-col items-start justify-start gap-1 flex-wrap">
-                <p className="font-semibold text-xs md:text-sm">Autor: {`Brandon Sanderson`}</p>
-                <p className="font-semibold text-xs md:text-sm">Editorial: {`Nova`}</p>
-                <p className="font-semibold text-xs md:text-sm">Año de lanzamiento: {`2016`}</p>
-                <p className="font-semibold text-xs md:text-sm">Generos: {`Fantasia, Acción`}</p>
-                <p className="font-semibold text-xs md:text-sm">Paginas: {`980`}</p>
-                <Badge variant="default" className={`h-6 select-none items-center ${statusBg}`}>
+                <p className="font-semibold text-xs md:text-sm">Autor: {book?.author}</p>
+                <p className="font-semibold text-xs md:text-sm">Editorial: {book?.publisher}</p>
+                <p className="font-semibold text-xs md:text-sm">ISBN: {book?.ISBN}</p>
+                <p className="font-semibold text-xs md:text-sm">Año de lanzamiento: {book?.release}</p>
+                <p className="font-semibold text-xs md:text-sm">Generos: {book?.categories}</p>
+                <p className="font-semibold text-xs md:text-sm">N° de Paginas: {book?.pages}</p>
+                <Badge variant="default" className={`h-6 select-none pointer-events-none items-center ${statusBg} hover:bg-inherit hover:cursor-default`}>
                   <p className="text-xs items-center">{book?.availability ? 'Disponible' : 'Agotado'}</p>
                 </Badge>
               </div>

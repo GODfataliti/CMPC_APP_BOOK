@@ -65,13 +65,14 @@ export function BookRequested() {
   // 4. Render.
   if (isLoading) {
     return (
-      <Skeleton className="w-full flex flex-col m-2 p-2 gap-2">
-        <div>
-          <Skeleton className="w-40 h-4 bg-gray-200" />
-          <Skeleton className="w-32 h-6 bg-gray-200 mt-1" />
+      <section className="w-full flex flex-row items-center justify-between gap-2 p-4 animate-pulse">
+        <Skeleton className="h-10 w-full md:w-3/4 rounded-md bg-muted/40" />
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-10 w-24 rounded-md bg-muted/40" />
+          <Skeleton className="h-10 w-28 rounded-md bg-muted/40" />
         </div>
-      </Skeleton>
-    )
+      </section>
+    );
   }
 
   return (
