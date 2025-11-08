@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { booksStore } from "@/stores";
 
-export default function Screen() {
+export default function SearchPage() {
   // -- 1. Manejo del estado.
   const data = useLoaderData({ from: '/dashboard' });
   const { loadRequested, clearParams } = booksStore()

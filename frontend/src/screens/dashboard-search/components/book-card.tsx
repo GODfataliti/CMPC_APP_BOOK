@@ -1,18 +1,21 @@
-import { FileText } from "lucide-react";
-import { useLoaderData, useParams } from "@tanstack/react-router";
+import { BookMarked } from "lucide-react";
+import { useLoaderData, useNavigate, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
+import type { Book } from "@/types";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 interface Props {
   index?: number;
-  book?: any;
+  book?: Book;
 }
 
 export default function BookCard(props: Props) {
   // -- 1. Manejo de estado.
   const { book } = props;
   const [statusBg, setStatusBg] = useState<string>('')
+  const navigate = useNavigate();
   // -- 2. Ciclo de vida.
   useEffect(() => {
     backgroundColor()
@@ -29,13 +32,30 @@ export default function BookCard(props: Props) {
   const mappingImage = () => {
     return <img src='/assets/book_found.png' className="object-cover rounded shadow w-32 h-32" />
   }
+  const onDetailBook = () => {
+    try {
+      navigate({
+        to: `/dashboard/book/${book?.ID}`,
+        viewTransition: {
+          types: ['container-form'],
+        },
+      });
+    } catch (err: unknown) {
+      console.error(err);
+      toast.error('Problemas al obtener la información del libro');
+    }
+  }
 
   // -- 4. Render.
   return (
-    <Card className="p-4 m-0" style={{ viewTransitionName: 'container-form' }}>
+    <Card 
+      className="p-4 m-0 transition-transform duration-200 ease-in-out hover:scale-[1.03] hover:shadow-lg cursor-pointer"
+      style={{ viewTransitionName: 'container-form' }}
+      onClick={onDetailBook}
+    >
       <CardTitle className="flex flex-row items-center justify-center md:justify-start gap-1 md:mx-4">
-        <FileText className="h-5 w-5" />
-        <h1>Resultados de la busqueda</h1>
+        <BookMarked className="h-5 w-5" />
+        <h1>El imperio final</h1>
       </CardTitle>
 
       <CardContent className="pb-2 m-0">
@@ -47,15 +67,12 @@ export default function BookCard(props: Props) {
           {/* DETALLES */}
           <div className="flex flex-col gap-1 pl-4">
             <div>
-              <p className="text-sm font-bold opacity-80">El imperio final</p>
-            </div>
-
-            <div>
               <p className="text-sm opacity-50">Detalles</p>
               <div className="flex flex-col items-start justify-start gap-1 flex-wrap">
                 <p className="font-semibold text-xs md:text-sm">Autor: {`Brandon Sanderson`}</p>
                 <p className="font-semibold text-xs md:text-sm">Editorial: {`Nova`}</p>
                 <p className="font-semibold text-xs md:text-sm">Año de lanzamiento: {`2016`}</p>
+                <p className="font-semibold text-xs md:text-sm">Generos: {`Fantasia, Acción`}</p>
                 <p className="font-semibold text-xs md:text-sm">Paginas: {`980`}</p>
                 <Badge variant="default" className={`h-6 select-none items-center ${statusBg}`}>
                   <p className="text-xs items-center">{book?.availability ? 'Disponible' : 'Agotado'}</p>

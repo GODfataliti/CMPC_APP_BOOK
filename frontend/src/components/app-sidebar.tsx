@@ -2,8 +2,10 @@
 
 import * as React from "react"
 import {
+  BookOpenText,
   Building2,
   LifeBuoy,
+  Logs,
   UserSearch,
 } from "lucide-react"
 import { Link, useRouterState } from "@tanstack/react-router"
@@ -60,8 +62,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   size={"lg"}
                 >
                   <Link to='/dashboard' viewTransition={true} preload={false}>
-                    <UserSearch />
-                    <span>Inicio</span>
+                    <BookOpenText />
+                    <span>Buscador Libros</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={location.pathname === '/dashboard/logs'}
+                  size={"lg"}
+                >
+                  <Link to='/dashboard' viewTransition={true} preload={false}>
+                    <Logs />
+                    <span>Registro de Modificaciones</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

@@ -1,8 +1,8 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import Login from '@/screens/dashboard-login/screen';
+import LoginPage from '@/screens/dashboard-login/screen';
 import NotFoundPage from '@/screens/not-found/screen';
 
 export const Route = createLazyFileRoute('/login')({
-  component: Login,
+  component: LoginPage,
   notFoundComponent: NotFoundPage,
 });

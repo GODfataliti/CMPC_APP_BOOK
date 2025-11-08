@@ -44,33 +44,37 @@ export function BookList(props: Props) {
       </div>
     )
   }
-  if (!books || books?.length === 0) {
-    return (
-      <div className="m-4">
+  // if (!books || books?.length === 0) {
+  //   return (
+  //     <div className="m-4">
 
-        <div className="flex flex-col items-center justify-center w-full min-h-[200px] border border-dashed border-gray-200 rounded-lg p-4">
-          <BookText className="w-12 h-12 text-gray-400 dark:text-gray-500 mb-2" />
-          <p className="text-md font-semibold text-gray-400 dark:text-gray-500">No se encontraron libros asociados a la búsqueda</p>
-        </div>
-      </div>
-    )
-  }
+  //       <div className="flex flex-col items-center justify-center w-full min-h-[200px] border border-dashed border-gray-200 rounded-lg p-4">
+  //         <BookText className="w-12 h-12 text-gray-400 dark:text-gray-500 mb-2" />
+  //         <p className="text-md font-semibold text-gray-400 dark:text-gray-500">No se encontraron libros asociados a la búsqueda</p>
+  //       </div>
+  //     </div>
+  //   )
+  // }
   return (
     <div>
       {/* -- Paginación -- */}
       <BookPagination />
-      <div className={cn("grid p-0 lg:grid-cols-3 md:grid-cols-2 gap-2.5 sm:grid-cols-2 pt-4", className)} {...props}>
 
         {/* -- Consultas -- */}
-        <ScrollArea className="h-[calc(100vh-200px)] w-full items-center">
-          {books?.map((book: any, index: number) => {
+        <ScrollArea className="h-[calc(98vh-200px)] w-full items-center">
+        <div className={cn("grid p-0 lg:grid-cols-3 md:grid-cols-2 gap-2.5 sm:grid-cols-2 pt-4 m-2", className)} {...props}>
+          <BookCard />
+          <BookCard />
+          <BookCard />
+          <BookCard />
+          {/* {books?.map((book: any, index: number) => {
             return (
               <BookCard book={book} index={index} key={index} />
             )
-          })}
+          })} */}
+        </div>
         </ScrollArea>
 
-      </div>
       {/* -- Paginación -- */}
       <BookPagination />
     </div>

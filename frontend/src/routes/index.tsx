@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { toast } from 'sonner';
-import DashboardLogin from '@/screens/dashboard-login/screen';
+import LoginPage from '@/screens/dashboard-login/screen';
 import { sessionStore, userStore } from '@/stores';
 import { verifySession } from '@/services/auth';
 import NotFoundPage from '@/screens/not-found/screen';
@@ -28,6 +28,6 @@ export const Route = createFileRoute('/')({
       });
     }
   },
-  component: DashboardLogin,
+  component: LoginPage,
   notFoundComponent: NotFoundPage,
 });

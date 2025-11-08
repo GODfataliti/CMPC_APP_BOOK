@@ -3,12 +3,28 @@ export interface Book {
   ISBN: string;
   name: string;
   author: string;
-  categories: Array<string>;
-  publisher: string;
-  release: string;
+  categories?: Array<string>;
+  publisher?: string;
+  release?: string;
   pages?: number;
   image: string;
   availability: boolean;
+}
+
+export interface BookDetail {
+  ID: string;
+  ISBN: string;
+  name: string;
+  author: string;
+  categories?: Array<string>;
+  publisher?: string;
+  release?: string;
+  pages?: number;
+  image?: string;
+  availability: boolean;
+  price?: string;
+  rating?: string;
+  stock?: number;
 }
 
 export interface SearchBook {

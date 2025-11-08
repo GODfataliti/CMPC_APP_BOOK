@@ -1,7 +1,8 @@
-import type { VerifySessionRES, VerifySessionResponse } from './types/verify-session.res'
+import type { Session } from '@/types';
+import type { VerifySessionResponse } from './types/'
 import { VITE_API_URL } from '@/config'
 
-export async function verifySession(sessionID: string): Promise<VerifySessionRES> {
+export async function verifySession(sessionID: string): Promise<Session> {
   try {
     const payload = {
       sessionID,
@@ -20,7 +21,7 @@ export async function verifySession(sessionID: string): Promise<VerifySessionRES
     //     console.error(err);
     //     return response.status = 500;
     //   })
-    const response = {
+    const response: VerifySessionResponse = {
       ERRORCODE: 0,
       GLOSADESC: 'Sesion valida',
       status: 200,
@@ -28,6 +29,7 @@ export async function verifySession(sessionID: string): Promise<VerifySessionRES
       data: {
         ID: sessionID,
         RUT: '19829133-1',
+        token: 'aaaaa',
         createdAt: '',
         expiredAt: '',
       },

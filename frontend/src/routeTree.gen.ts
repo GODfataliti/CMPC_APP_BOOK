@@ -14,6 +14,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardBookIndexRouteImport } from './routes/dashboard/book/index'
+import { Route as DashboardBookIDRouteImport } from './routes/dashboard/book/$ID'
 
 const LoginLazyRouteImport = createFileRoute('/login')()
 
@@ -37,17 +39,31 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const DashboardBookIndexRoute = DashboardBookIndexRouteImport.update({
+  id: '/book/',
+  path: '/book/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardBookIDRoute = DashboardBookIDRouteImport.update({
+  id: '/book/$ID',
+  path: '/book/$ID',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof LoginLazyRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/book/$ID': typeof DashboardBookIDRoute
+  '/dashboard/book': typeof DashboardBookIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginLazyRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/book/$ID': typeof DashboardBookIDRoute
+  '/dashboard/book': typeof DashboardBookIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -55,13 +71,28 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof LoginLazyRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/book/$ID': typeof DashboardBookIDRoute
+  '/dashboard/book/': typeof DashboardBookIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/dashboard/'
+    | '/dashboard/book/$ID'
+    | '/dashboard/book'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard'
-  id: '__root__' | '/' | '/dashboard' | '/login' | '/dashboard/'
+  to: '/' | '/login' | '/dashboard' | '/dashboard/book/$ID' | '/dashboard/book'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/dashboard/'
+    | '/dashboard/book/$ID'
+    | '/dashboard/book/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -100,15 +131,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/dashboard/book/': {
+      id: '/dashboard/book/'
+      path: '/book'
+      fullPath: '/dashboard/book'
+      preLoaderRoute: typeof DashboardBookIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/book/$ID': {
+      id: '/dashboard/book/$ID'
+      path: '/book/$ID'
+      fullPath: '/dashboard/book/$ID'
+      preLoaderRoute: typeof DashboardBookIDRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
   }
 }
 
 interface DashboardRouteRouteChildren {
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardBookIDRoute: typeof DashboardBookIDRoute
+  DashboardBookIndexRoute: typeof DashboardBookIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardBookIDRoute: DashboardBookIDRoute,
+  DashboardBookIndexRoute: DashboardBookIndexRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(

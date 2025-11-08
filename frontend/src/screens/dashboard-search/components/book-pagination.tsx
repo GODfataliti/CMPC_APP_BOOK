@@ -1,9 +1,9 @@
 import { useRouterState } from "@tanstack/react-router";
+import type { QueryParams } from "@/services/book/types";
 import { Skeleton } from "@/components/ui/skeleton";
-// import { getByCompanyAndParams } from "@/services/search-queries";
-// import type { GetByCompanyAndParamsDTO } from "@/services/search-queries/DTOs/get-by-company.dto";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { booksStore } from "@/stores";
+import { getBooksByParams } from "@/services/book";
 
 export function BookPagination() {
   // 1. Manejo de estado.
@@ -12,33 +12,30 @@ export function BookPagination() {
     page,
     pages,
   } = booksStore()
-  // const search = useSearch({ from: '/dashboard/requested' });
   const { isLoading } = useRouterState();
-
-  // const page: number = search.page ?? 1;
-  // const pages: number = data?.pages ?? 1;
 
   // 2. Ciclo de vida.
   // 3. Metodos.
   const onPrevPage = async() => {
     if (isLoading) return;
-    const search: any = {
+    // @follow-up: Agregar los demas parametros de busqueda en base a los filtros actuales.
+    const search: QueryParams = {
       page: Number(page)-1,
     }
-    // await getByCompanyAndParams(companyID, search).then((res) => {
-    //   loadRequested(res?.searches, res?.stats, res?.page, res?.pages);
-    // })
+    await getBooksByParams(search).then((res) => {
+      loadRequested(res.books, res.page, res.pages);
+    })
   }
 
   const onNextPage = async() => {
     if (isLoading) return;
-    const search: any = {
+    // @follow-up: Agregar los demas parametros de busqueda en base a los filtros actuales.
+    const search: QueryParams = {
       page: Number(page)+1,
-      // PARAMS
     }
-    // await getByCompanyAndParams(companyID, search).then((res) => {
-    //   loadRequested(res?.searches, res?.stats, res?.page, res?.pages);
-    // })
+    await getBooksByParams(search).then((res) => {
+      loadRequested(res.books, res.page, res.pages);
+    })
   }
 
   // 4. Render.
