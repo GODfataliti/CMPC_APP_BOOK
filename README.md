@@ -1,5 +1,13 @@
 # CMPC Books
 
+## 🐳 Arquitectura del proyecto
+
+![Arquitectura del proyecto](.github/arch.jpg)
+
+## 🏛️ Modelo entidad relación
+
+![Modelo entidad relación](.github/model_db.jpg)
+
 ## 🚀 Ejecucion
 
 Clonar el repositorio:
