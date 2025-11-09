@@ -27,7 +27,9 @@ export class AuthorService {
   }
 
   async getByID(authorID: string): Promise<Author | null> {
-    const author: Author | null = await this.authorModel.findByPk(authorID);
+    const author: Author | null = await this.authorModel.findByPk(authorID, {
+      paranoid: false,
+    });
     return author;
   }
 
@@ -49,6 +51,16 @@ export class AuthorService {
 
   async delete(authorID: string): Promise<void> {
     await this.authorModel.destroy({
+      where: {
+        authorID,
+      },
+    });
+
+    return;
+  }
+
+  async restore(authorID: string): Promise<void> {
+    await this.authorModel.restore({
       where: {
         authorID,
       },

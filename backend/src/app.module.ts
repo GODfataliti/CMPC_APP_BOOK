@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
+import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthModule } from './modules/auth/auth.module';
 import { BookModule } from './modules/books/book.module';
 import { HealthModule } from './modules/health/health.module';
 import { AuthorModule } from './modules/authors/author.module';
-import { SequelizeModule } from '@nestjs/sequelize';
+import { PublisherModule } from './modules/publishers/publisher.module';
+import { CategoryModule } from './modules/categories/category.module';
 import { env } from './config/env';
-
-import { Author } from './modules/authors/author.model';
 
 @Module({
   imports: [
@@ -18,7 +18,6 @@ import { Author } from './modules/authors/author.model';
       username: env.DATABASE_USER,
       password: env.DATABASE_PASSWORD,
       database: env.DATABASE_NAME,
-      models: [Author],
       autoLoadModels: true,
       synchronize: true,
       timezone: '-03:00', // Chile
@@ -27,6 +26,8 @@ import { Author } from './modules/authors/author.model';
     // -- Business.
     AuthModule,
     AuthorModule,
+    CategoryModule,
+    PublisherModule,
     BookModule,
     HealthModule,
   ],

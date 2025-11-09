@@ -6,6 +6,9 @@ export interface Environment {
   // * -- Global.
   PORT: number;
 
+  // * -- JWT.
+  JWT_SECRET: string;
+
   // * -- Database.
   DATABASE_HOST: string;
   DATABASE_PORT: number;
@@ -18,6 +21,9 @@ const schema = joi
   .object<Environment>({
     // -- Global.
     PORT: joi.number().default(8080),
+
+    // -- JWT.
+    JWT_SECRET: joi.string().required(),
 
     // -- Database.
     DATABASE_HOST: joi.string().required(),

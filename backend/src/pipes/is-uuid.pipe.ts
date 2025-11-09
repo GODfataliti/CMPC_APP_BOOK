@@ -13,7 +13,7 @@ export class IsUUIDPipe implements PipeTransform {
       return value;
     }
 
-    console.log('Validating UUID for value:', value);
+    // console.log('Validating UUID for value:', value);
     if (!isUUID(value)) {
       throw new BadRequestException(
         'El ID proporcionado no es un identificador UUID válido.',

@@ -9,9 +9,9 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { AuthorService } from './author.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { IsUUIDPipe } from 'src/pipes';
+import { AuthorService } from './author.service';
+import { IsUUIDPipe } from '../../pipes';
 import { CreateAuthorDTO, UpdateAuthorDTO } from './DTOs/';
 import { Author } from './author.model';
 import type { Response } from 'express';
@@ -141,6 +141,31 @@ export class AuthorController {
     res.status(HttpStatus.OK).send({
       status: HttpStatus.OK,
       message: 'Author deleted successfully',
+    });
+    return;
+  }
+
+  @Post('/restore/:authorID')
+  async restore(
+    @Param('authorID', new IsUUIDPipe()) authorID: string,
+    @Res() res: Response,
+  ): Promise<void> {
+    const author = await this.service.getByID(authorID);
+
+    // 404 - Not Found.
+    if (!author) {
+      res.status(HttpStatus.NOT_FOUND).send({
+        status: HttpStatus.NOT_FOUND,
+        message: 'Author not found',
+      });
+      return;
+    }
+
+    await this.service.restore(authorID);
+
+    res.status(HttpStatus.OK).send({
+      status: HttpStatus.OK,
+      message: 'Author restored successfully',
     });
     return;
   }
