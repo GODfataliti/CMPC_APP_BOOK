@@ -1,48 +1,234 @@
 {
   "books": [
     {
-      "ID": "aaaa123",
-      "ISBN": "9788466658898",
-      "name": "El imperio final",
-      "author": "Brandon Sanderson",
-      "categories": ["Fantasia","Acción"],
-      "publisher": "Ediciones B",
-      "realease": "2016",
-      "image": "",
-      "availability": true
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
     },
     {
-      "ID": "aaaa3453",
-      "ISBN": "9788466658904",
-      "name": "Al pozo de la ascension",
-      "author": "Juliet P. Sanderson",
-      "categories": ["Fantasia","Suspendo", "Drama"],
-      "publisher": "Nova",
-      "realease": "2017",
-      "image": "",
-      "availability": false
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
     },
     {
-      "ID": "aaaa45645",
-      "ISBN": "9788490705834",
-      "name": "Elantris",
-      "author": "Brandon Sanderson",
-      "categories": ["Fantasia",""],
-      "publisher": "B Maxi",
-      "realease": "2019",
-      "image": "",
-      "availability": true
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
     },
     {
-      "ID": "aaaa45645222",
-      "ISBN": "9788490705834",
-      "name": "Pozo Asesino",
-      "author": "Marie Lu",
-      "categories": ["Fantasia",""],
-      "publisher": "Planeta",
-      "realease": "2019",
-      "image": "",
-      "availability": false
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
+    },
+    {
+      "book_id": "aaaa123",
+      "author_id": "Brandon Sanderson",
+      "publisher_id": "Ediciones B",
+      "category_id": "Fantasia",
+      "title": "El imperio final",
+      "price": 25000,
+      "availability": true,
+      "cover_image": ""
     }
   ] 
 }

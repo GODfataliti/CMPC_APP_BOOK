@@ -29,7 +29,7 @@ export function BookRequested() {
   // 2. Ciclo de vida.
   // 3. Metodos.
   const onSearch = async() => {
-    setDisabled(true);
+    console.log(advanceSearch);
     const search: QueryParams = {
       page: 1,
       // PARAMS
@@ -42,7 +42,7 @@ export function BookRequested() {
       available: advanceSearch.available,
     }
     setDisabled(false);
-    loadParams(search.general ?? '', search.title ?? '', search.category ?? '', search.author ?? '', search.publisher ?? '', search.available ?? null);
+    loadParams(search.general ?? '', search.title ?? '', search.category ?? '', search.author ?? '', search.publisher ?? '', search.available ?? null, search.isAdvanceSearch ?? false);
     await getBooksByParams(search).then((res) => {
       loadRequested(res.books, res.page, res.pages);
     }).finally(() => {
@@ -112,11 +112,17 @@ export function BookRequested() {
               onChange={(e) => setAdvanceSearch({ ...advanceSearch, publisher: e.target.value })}
             />
             <div className="flex gap-2 m-2 items-center">
-              <Select>
+              <Select onValueChange={(value) =>
+                setAdvanceSearch({
+                  ...advanceSearch,
+                  available:
+                    value === "null" ? null : value === "true" ? true : false,
+                })
+              }>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Disponibilidad" />
                 </SelectTrigger>
-                <SelectContent onSelect={(e) => setAdvanceSearch({ ...advanceSearch, available: e.target.value === "null" ? null : e.target.value === "true" ? true : false })}>
+                <SelectContent>
                   <SelectItem value="null">Todos</SelectItem>
                   <SelectItem value="true">Disponibles</SelectItem>
                   <SelectItem value="false">Agotados</SelectItem>

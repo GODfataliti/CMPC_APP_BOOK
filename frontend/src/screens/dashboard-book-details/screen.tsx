@@ -18,8 +18,8 @@ export function BookDetailPage() {
   const params = useParams({ from: "/dashboard/book/$ID" });
 
   const book = preloadedData;
-  const imageSrc = book.image && book.image.trim() !== "" 
-    ? book.image 
+  const imageSrc = book.cover_image && book.cover_image.trim() !== "" 
+    ? book.cover_image
     : "/assets/book_banner.png";
 
   // -- 2. Métodos.
@@ -59,7 +59,7 @@ export function BookDetailPage() {
           <div className="w-full md:w-1/2 flex justify-center items-start">
             <img
               src={imageSrc}
-              alt={book.name}
+              alt={book.title}
               className="w-full max-w-sm rounded-md object-cover border shadow-sm"
             />
           </div>

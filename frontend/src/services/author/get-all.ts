@@ -1,4 +1,4 @@
-import type { BookDetail, Option } from "@/types";
+import type { Option } from "@/types";
 import { VITE_API_URL } from "@/config";
 import { sessionStore } from "@/stores";
 
@@ -15,14 +15,14 @@ export async function getAllAuthors(): Promise<any> {
       },
     };
 
-    // const response: any = await fetch(`${VITE_API_URL}/authors/all`, options)
-    //   .then((res) => res.json());
+    const response: any = await fetch(`${VITE_API_URL}/authors/all`, options)
+      .then((res) => res.json());
 
-    // if (response.status >= 400) {
-    //   throw new Error(response.GLOSADESC ? response.GLOSADESC : 'Problemas al obtener la información del libro');
-    // }
+    if (response.status >= 400) {
+      throw new Error(response.GLOSADESC ? response.GLOSADESC : 'Problemas al obtener los autores');
+    }
 
-    // return response.data;
+    return response.data;
 
   } catch (err: unknown) {
     console.error(err);
@@ -33,9 +33,6 @@ export async function getAllAuthors(): Promise<any> {
 
 // --- Simulación de endpoints ---
 export async function getAuthors(): Promise<Array<Option>> {
-  // En tu versión real, esto llamaría a tu backend NestJS
-  // Ej: const res = await fetch(`${VITE_API_URL}/authors`);
-  // return res.json();
   return new Promise((resolve) =>
     setTimeout(
       () =>

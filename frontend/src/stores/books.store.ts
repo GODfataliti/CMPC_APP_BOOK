@@ -16,10 +16,11 @@ export interface BookState {
   author: string;
   publisher: string;
   available: boolean | null;
+  isAdvanceSearch: boolean;
 
   loadRequested: (books: Array<Book>, page: number, pages: number) => void;
   clearRequested: () => void;
-  loadParams: (general: string, title: string, category: string, author: string, publisher: string, available: boolean | null) => void
+  loadParams: (general: string, title: string, category: string, author: string, publisher: string, available: boolean | null, isAdvanceSearch: boolean) => void
   clearParams: () => void;
 }
 
@@ -33,6 +34,7 @@ const initial: StateCreator<BookState> = (set): BookState => ({
   author: '',
   publisher: '',
   available: null,
+  isAdvanceSearch: false,
 
 
   loadRequested: (books: Array<Book>, page: number, pages: number) => {
@@ -45,7 +47,7 @@ const initial: StateCreator<BookState> = (set): BookState => ({
       pages: 1,
     });
   },
-  loadParams: (general: string, title: string, category: string, author: string, publisher: string, available: boolean | null) => {
+  loadParams: (general: string, title: string, category: string, author: string, publisher: string, available: boolean | null, isAdvanceSearch: boolean) => {
     set({
       general,
       title,
@@ -53,6 +55,7 @@ const initial: StateCreator<BookState> = (set): BookState => ({
       author,
       publisher,
       available,
+      isAdvanceSearch,
     });
   },
   clearParams: () => {
@@ -63,6 +66,7 @@ const initial: StateCreator<BookState> = (set): BookState => ({
       author: '',
       publisher: '',
       available: null,
+      isAdvanceSearch: false,
     })
   },
 });

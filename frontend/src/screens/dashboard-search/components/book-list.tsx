@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { ArrowUpDown } from "lucide-react";
 import { useRouterState } from "@tanstack/react-router";
-import booksData from "../mocks/books.mock.json";
 import { BookPagination } from "./book-pagination";
 import BookCard from "./book-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -10,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { booksStore } from "@/stores";
 
 interface Props {
   className?: string;
@@ -17,7 +17,7 @@ interface Props {
 
 export function BookList({ className }: Props) {
   // 1. Manejo de estado.
-  const books = booksData.books;
+  const { books } = booksStore();
   const [sortFields, setSortFields] = useState<Array<string>>([]); // e.g. ['author', 'release']
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const { isLoading } = useRouterState();
@@ -141,7 +141,9 @@ export function BookList({ className }: Props) {
           </Button>
         </div>
       </div>
-
+      
+      {/* Paginación */}
+      <BookPagination />
 
       {/* Listado */}
       <ScrollArea className="h-[calc(98vh-200px)] w-full items-center">

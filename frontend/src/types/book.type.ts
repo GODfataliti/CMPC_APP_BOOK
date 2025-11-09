@@ -1,31 +1,14 @@
 export interface Book {
-  ID: string;
-  ISBN: string;
-  name: string;
-  author: string;
-  categories?: Array<string>;
-  publisher?: string;
-  release?: string;
-  pages?: number;
-  image: string;
+  book_id: string;
+  author_id: string;
+  publisher_id: string;
+  category_id: string;
+  title: string;
+  price: number;
   availability: boolean;
-}
-
-export interface BookDetail {
-  ID: string;
-  ISBN: string;
-  name: string;
-  author: string;
-  categories?: Array<string>;
-  publisher?: string;
-  release?: string;
-  pages?: number;
-  image?: string;
-  availability: boolean;
-  price?: string;
-  rating?: string;
-  stock?: number;
-  summary?: string;
+  cover_image?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface SearchBook {

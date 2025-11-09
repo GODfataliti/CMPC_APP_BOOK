@@ -1,11 +1,8 @@
 
 export interface User {
-  ID: string;
-  RUT: string;
-  name: string;
-  lastname?: string;
-  token: string;
-  imageURL?: string;
+  user_id: string;
+  username: string;
+  email: string;
   createdAt?: string;
   updatedAt?: string;
 }

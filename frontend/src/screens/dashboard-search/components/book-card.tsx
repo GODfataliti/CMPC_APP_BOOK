@@ -37,7 +37,7 @@ export default function BookCard(props: Props) {
   const onDetailBook = () => {
     try {
       navigate({
-        to: `/dashboard/book/${book?.ID}`,
+        to: `/dashboard/book/${book?.book_id}`,
         viewTransition: {
           types: ['container-form'],
         },
@@ -57,7 +57,7 @@ export default function BookCard(props: Props) {
     >
       <CardTitle className="flex flex-row items-center justify-center md:justify-start gap-1 md:mx-4">
         <BookMarked className="h-5 w-5" />
-        <h1>{book?.name}</h1>
+        <h1>{book?.title}</h1>
       </CardTitle>
 
       <CardContent className="pb-2 m-0">
@@ -71,12 +71,12 @@ export default function BookCard(props: Props) {
             <div>
               <p className="text-sm opacity-50">Detalles</p>
               <div className="flex flex-col items-start justify-start gap-1 flex-wrap">
-                <p className="font-semibold text-xs md:text-sm">Autor: {book?.author}</p>
-                <p className="font-semibold text-xs md:text-sm">Editorial: {book?.publisher}</p>
-                <p className="font-semibold text-xs md:text-sm">ISBN: {book?.ISBN}</p>
-                <p className="font-semibold text-xs md:text-sm">Año de lanzamiento: {book?.release}</p>
-                <p className="font-semibold text-xs md:text-sm">Generos: {book?.categories}</p>
-                <p className="font-semibold text-xs md:text-sm">N° de Paginas: {book?.pages}</p>
+                <p className="font-semibold text-xs md:text-sm">Autor: {book?.author_id}</p>
+                <p className="font-semibold text-xs md:text-sm">Editorial: {book?.publisher_id}</p>
+                {/* <p className="font-semibold text-xs md:text-sm">ISBN: {book?.ISBN}</p> */}
+                {/* <p className="font-semibold text-xs md:text-sm">Año de lanzamiento: {book?.release}</p> */}
+                <p className="font-semibold text-xs md:text-sm">Generos: {book?.category_id}</p>
+                <p className="font-semibold text-xs md:text-sm">Precio: {book?.price}</p>
                 <Badge variant="default" className={`h-6 select-none pointer-events-none items-center ${statusBg} hover:bg-inherit hover:cursor-default`}>
                   <p className="text-xs items-center">{book?.availability ? 'Disponible' : 'Agotado'}</p>
                 </Badge>
@@ -85,7 +85,7 @@ export default function BookCard(props: Props) {
 
             <div>
               <p className="text-sm opacity-50">Ultima modificación</p>
-              <p className="font-semibold text-xs md:text-md">{new Date().toLocaleDateString("es-CL")}</p>
+              <p className="font-semibold text-xs md:text-md">{book?.updated_at}</p>
             </div>
           </div>
         </div>

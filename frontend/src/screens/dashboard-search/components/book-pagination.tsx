@@ -11,6 +11,13 @@ export function BookPagination() {
     loadRequested,
     page,
     pages,
+    general,
+    title,
+    category,
+    author,
+    publisher,
+    available,
+    isAdvanceSearch,
   } = booksStore()
   const { isLoading } = useRouterState();
 
@@ -21,6 +28,13 @@ export function BookPagination() {
     // @follow-up: Agregar los demas parametros de busqueda en base a los filtros actuales.
     const search: QueryParams = {
       page: Number(page)-1,
+      general,
+      title,
+      category,
+      author,
+      publisher,
+      available,
+      isAdvanceSearch,
     }
     await getBooksByParams(search).then((res) => {
       loadRequested(res.books, res.page, res.pages);
@@ -32,6 +46,13 @@ export function BookPagination() {
     // @follow-up: Agregar los demas parametros de busqueda en base a los filtros actuales.
     const search: QueryParams = {
       page: Number(page)+1,
+      general,
+      title,
+      category,
+      author,
+      publisher,
+      available,
+      isAdvanceSearch,
     }
     await getBooksByParams(search).then((res) => {
       loadRequested(res.books, res.page, res.pages);

@@ -1,5 +1,6 @@
 import { useLoaderData, useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
+import booksData from "./mocks/books.mock.json";
 import { BookList } from "./components/book-list";
 import { BookRequested } from "./components/book-search";
 import { CreateBook } from "./components/create-book";
@@ -12,13 +13,14 @@ import { booksStore } from "@/stores";
 export default function SearchPage() {
   // -- 1. Manejo del estado.
   const data = useLoaderData({ from: '/dashboard' });
+  const books = booksData.books;
   const { loadRequested, clearParams } = booksStore()
   const { isLoading } = useRouterState();
 
   // -- 2. Ciclo de vida.
   useEffect(() => {
     clearParams();
-    loadRequested(data?.books, data?.page, data?.pages);
+    loadRequested(books, 1, 4);
   }, [data])
   // -- 3. Metodos.
   // -- 4. Render.

@@ -1,7 +1,6 @@
 export interface Session {
-  ID: string;
-  RUT: string;
+  session_id: string;
   token?: string;
-  createdAt?: string;
-  expiredAt?: string;
+  created_at?: string;
+  expired_at?: string;
 }
