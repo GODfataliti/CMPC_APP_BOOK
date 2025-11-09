@@ -1,18 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { env } from './config/env';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { setupDoc } from './app.swagger';
 
 async function bootstrap(): Promise<void> {
-  const logger = new Logger('bootstrap');
+  const logger = new Logger('main');
 
   // -- Settings.
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.setGlobalPrefix('api');
-  app.useGlobalFilters();
   app.useGlobalInterceptors();
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters();
   app.enableCors({
     origin: '*',
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],

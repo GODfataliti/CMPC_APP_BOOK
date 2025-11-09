@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Builds
+dist/
+
+# Editor
+.vscode/
+
+# Others
+.prettierignore
+.prettierrc
