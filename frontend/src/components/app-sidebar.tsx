@@ -73,7 +73,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   isActive={location.pathname === '/dashboard/logs'}
                   size={"lg"}
                 >
-                  <Link to='/dashboard' viewTransition={true} preload={false}>
+                  <Link to='/dashboard/logs' viewTransition={true} preload={false}>
                     <Logs />
                     <span>Registro de Modificaciones</span>
                   </Link>

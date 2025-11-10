@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   Res,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -97,9 +98,11 @@ export class BookController {
   @Post('/create')
   async create(
     @Body() body: CreateBookDTO,
+    @Req() req: Request,
     @Res() res: Response,
   ): Promise<void> {
-    const book = await this.service.createBook(body);
+    const userId = req.user?.userID;
+    const book = await this.service.createBook(body, userId);
 
     res.status(HttpStatus.CREATED).send({
       status: HttpStatus.CREATED,
@@ -118,8 +121,10 @@ export class BookController {
   async update(
     @Param('bookID', new IsUUIDPipe()) bookID: string,
     @Body() body: UpdateBookDTO,
+    @Req() req: Request,
     @Res() res: Response,
   ): Promise<void> {
+    const userId = req.user?.userID;
     const book = await this.service.getBookById(bookID);
 
     if (!book) {
@@ -130,7 +135,7 @@ export class BookController {
       return;
     }
 
-    const updatedBook = await this.service.updateBook(bookID, body);
+    const updatedBook = await this.service.updateBook(bookID, body, userId);
 
     res.status(HttpStatus.OK).send({
       status: HttpStatus.OK,
@@ -148,8 +153,10 @@ export class BookController {
   @Delete('delete/:bookID')
   async delete(
     @Param('bookID', new IsUUIDPipe()) bookID: string,
+    @Req() req: Request,
     @Res() res: Response,
   ): Promise<void> {
+    const userId = req.user?.userID;
     const book = await this.service.getBookById(bookID);
 
     if (!book) {
@@ -160,7 +167,7 @@ export class BookController {
       return;
     }
 
-    await this.service.deleteBook(bookID);
+    await this.service.deleteBook(bookID, userId);
 
     res.status(HttpStatus.OK).send({
       status: HttpStatus.OK,

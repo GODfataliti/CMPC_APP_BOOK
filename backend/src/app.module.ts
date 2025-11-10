@@ -6,8 +6,9 @@ import { HealthModule } from './modules/health/health.module';
 import { AuthorModule } from './modules/authors/author.module';
 import { PublisherModule } from './modules/publishers/publisher.module';
 import { CategoryModule } from './modules/categories/category.module';
-import { env } from './config/env';
+import { LogModule } from './modules/logs/log.module';
 import { SeedModule } from './database/seed/seed.module';
+import { env } from './config/env';
 import { SeedService } from './database/seed/seed.service';
 import { UploadsModule } from './modules/uploads/uploads.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -39,6 +40,7 @@ import { join } from 'path';
     BookModule,
     HealthModule,
     UploadsModule,
+    LogModule,
     // Exponer carpeta uploads como pública
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),

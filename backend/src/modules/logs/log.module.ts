@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { LogService } from './log.service';
+import { LogController } from './log.controller';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { Log } from './log.model';
 
 @Module({
-  imports: [],
-  controllers: [],
+  imports: [SequelizeModule.forFeature([Log])],
+  controllers: [LogController],
   providers: [LogService],
-  exports: [LogService],
+  exports: [SequelizeModule, LogService],
 })
 export class LogModule {}

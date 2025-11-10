@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Book, IBookDetails } from './book.model';
 import { FindOptions, Op } from 'sequelize';
 import { CreateBookDTO, GetBooksQueryDTO, UpdateBookDTO } from './DTOs';
+import { LogService } from '../logs/log.service';
 
 @Injectable()
 export class BookService {
@@ -11,6 +12,7 @@ export class BookService {
   constructor(
     @InjectModel(Book)
     private readonly bookModel: typeof Book,
+    private readonly logService: LogService,
   ) {}
 
   // --------------------------------------------------------
@@ -90,21 +92,36 @@ export class BookService {
   }
 
   // --------------------------------------------------------
-  async createBook(data: CreateBookDTO): Promise<Book> {
-    return await this.bookModel.create(data);
+  async createBook(data: CreateBookDTO, userId: string): Promise<Book> {
+    const book = await this.bookModel.create(data);
+    await this.logService.createLog(userId, 'CREATE', 'book', book.bookID);
+    return book;
   }
 
   // --------------------------------------------------------
-  async updateBook(bookID: string, data: UpdateBookDTO): Promise<Book> {
+  async updateBook(
+    bookID: string,
+    data: UpdateBookDTO,
+    userId: string,
+  ): Promise<Book> {
     const [_, [updatedBook]] = await this.bookModel.update(data, {
       where: { bookID },
       returning: true,
     });
+    if (updatedBook) {
+      await this.logService.createLog(
+        userId,
+        'UPDATE',
+        'book',
+        updatedBook.bookID,
+      );
+    }
     return updatedBook;
   }
 
   // --------------------------------------------------------
-  async deleteBook(bookID: string): Promise<void> {
+  async deleteBook(bookID: string, userId: string): Promise<void> {
     await this.bookModel.destroy({ where: { bookID } });
+    await this.logService.createLog(userId, 'DELETE', 'book', bookID);
   }
 }
