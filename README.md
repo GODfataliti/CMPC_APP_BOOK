@@ -31,6 +31,11 @@ Correr el proyecto en base al archivo `docker-compose.yaml`:
   $docker compose up --build -d
 ```
 
+Credenciales por defecto:
+- User: admin@cmpc.com
+- Password: asd123
+
+
 En caso de querer detener los contenedores
 
 ```bash
