@@ -1,7 +1,8 @@
+import type { Option } from "@/types";
 import { VITE_API_URL } from "@/config";
 import { sessionStore } from "@/stores";
 
-export async function getAllAuthors(): Promise<any> {
+export async function getAllCategories(): Promise<any> {
   try {
     const { token } = sessionStore.getState();
 
@@ -27,4 +28,20 @@ export async function getAllAuthors(): Promise<any> {
     console.error(err);
     throw { message: 'Ocurrio un error al obtener las categorias, intente de nuevo.', status: 500 }
   }
+}
+
+// --- Simulación de endpoints ---
+export async function getCategories(): Promise<Array<Option>> {
+  return new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve([
+          { value: "fantasia", label: "Fantasía" },
+          { value: "aventura", label: "Aventura" },
+          { value: "ciencia-ficcion", label: "Ciencia Ficción" },
+          { value: "romance", label: "Romance" },
+        ]),
+      600
+    )
+  );
 }

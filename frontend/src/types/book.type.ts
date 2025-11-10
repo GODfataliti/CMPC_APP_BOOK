@@ -1,14 +1,17 @@
 export interface Book {
-  book_id: string;
-  author_id: string;
-  publisher_id: string;
-  category_id: string;
+  bookID: string;
+  authorID: string;
+  publisherID: string;
+  categoryID: string;
   title: string;
   price: number;
+  page: number;
+  stock: number;
   availability: boolean;
-  cover_image?: string;
-  created_at?: string;
-  updated_at?: string;
+  coverImage?: string | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
 }
 
 export interface SearchBook {

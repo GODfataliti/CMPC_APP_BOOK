@@ -18,13 +18,14 @@ export function BookDetailPage() {
   const params = useParams({ from: "/dashboard/book/$ID" });
 
   const book = preloadedData;
-  const imageSrc = book.cover_image && book.cover_image.trim() !== "" 
-    ? book.cover_image
+  const imageSrc = book.coverImage && book.coverImage.trim() !== "" 
+    ? book.coverImage
     : "/assets/book_banner.png";
 
   // -- 2. Métodos.
-  const onEdit = () => {
-    console.log('Editar libro', params.ID);
+  const onUpdate = () => {
+    console.log('Libro actualizado', params.ID);
+    // Aquí puedes recargar los datos del libro si es necesario
   };
   
 
@@ -46,7 +47,7 @@ export function BookDetailPage() {
           </div>
 
           <div className="flex items-center gap-2 ml-auto">
-            <Buttons book={book} onEdit={onEdit}/>
+            <Buttons book={book} onUpdate={onUpdate}/>
 
             <ModeToggle />
           </div>

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { PlusCircle } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Pencil } from 'lucide-react'
 import { toast } from 'sonner'
 import type { Book } from '@/types'
 import {
@@ -20,7 +20,12 @@ import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-export function CreateBook() {
+interface EditBookProps {
+  book?: Book
+  onUpdate?: () => void
+}
+
+export function EditBook({ book, onUpdate }: EditBookProps) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [currentTab, setCurrentTab] = useState<
@@ -40,9 +45,26 @@ export function CreateBook() {
     stock: 0,
   })
 
+  // Cargar los datos del libro cuando se abre el modal
+  useEffect(() => {
+    if (open && book) {
+      setFormData({
+        title: book.title,
+        authorID: book.authorID,
+        publisherID: book.publisherID,
+        page: book.page,
+        price: book.price,
+        availability: book.availability,
+        categoryID: book.categoryID,
+        coverImage: book.coverImage,
+        stock: book.stock,
+      })
+    }
+  }, [open, book])
+
   const handleChange = (
     field: keyof Book,
-    value: string | number | boolean | any,
+    value: string | number | boolean | unknown,
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
@@ -57,10 +79,11 @@ export function CreateBook() {
       setLoading(true)
       await new Promise((r) => setTimeout(r, 1000))
 
-      toast.success('Libro creado exitosamente.')
+      toast.success('Libro actualizado exitosamente.')
+      onUpdate?.()
       setOpen(false)
     } catch (err) {
-      toast.error('Error al crear el libro, intente nuevamente.')
+      toast.error('Error al actualizar el libro, intente nuevamente.')
     } finally {
       setLoading(false)
     }
@@ -78,9 +101,9 @@ export function CreateBook() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="flex gap-1" variant="default">
-          <PlusCircle className="w-4 h-4" />
-          Crear Libro
+        <Button className="flex gap-1" variant="outline" size="sm">
+          <Pencil className="w-4 h-4" />
+          Editar
         </Button>
       </DialogTrigger>
 
@@ -90,7 +113,7 @@ export function CreateBook() {
       >
         <DialogHeader className="px-6 pt-4 pb-2 border-b">
           <DialogTitle className="text-lg font-semibold">
-            Crear nuevo libro
+            Editar libro
           </DialogTitle>
         </DialogHeader>
 
@@ -241,7 +264,7 @@ export function CreateBook() {
             <Button onClick={goToNextTab}>Siguiente</Button>
           ) : (
             <Button onClick={handleSubmit} disabled={loading || !isComplete}>
-              {loading ? 'Guardando...' : 'Guardar'}
+              {loading ? 'Actualizando...' : 'Guardar cambios'}
             </Button>
           )}
         </div>
