@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { updateBook } from '@/services/book'
 
 interface EditBookProps {
   book?: Book
@@ -33,7 +34,7 @@ export function EditBook({ book, onUpdate }: EditBookProps) {
   >('general')
 
   const [formData, setFormData] = useState<
-    Partial<Omit<Book, 'bookID' | 'createdAt' | 'updatedAt' | 'deletedAt'>>
+    Partial<Omit<Book, 'bookID' | 'author' | 'publisher' | 'category' | 'createdAt' | 'updatedAt' | 'deletedAt'>>
   >({
     title: '',
     authorID: '',
@@ -77,7 +78,7 @@ export function EditBook({ book, onUpdate }: EditBookProps) {
 
     try {
       setLoading(true)
-      await new Promise((r) => setTimeout(r, 1000))
+      await updateBook(book!.bookID, formData)
 
       toast.success('Libro actualizado exitosamente.')
       onUpdate?.()

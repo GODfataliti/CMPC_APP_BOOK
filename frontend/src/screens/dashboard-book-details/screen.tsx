@@ -11,6 +11,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { updateBook } from "@/services/book";
 
 export function BookDetailPage() {
   // -- 1. Manejo de estado.
@@ -24,8 +25,7 @@ export function BookDetailPage() {
 
   // -- 2. Métodos.
   const onUpdate = () => {
-    console.log('Libro actualizado', params.ID);
-    // Aquí puedes recargar los datos del libro si es necesario
+    console.log('Actualizando libro', params.ID);
   };
   
 

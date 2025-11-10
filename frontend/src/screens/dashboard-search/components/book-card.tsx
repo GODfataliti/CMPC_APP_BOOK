@@ -13,7 +13,7 @@ interface Props {
 
 export default function BookCard(props: Props) {
   // -- 1. Manejo de estado.
-  const { book } = props;
+  const { book, index } = props;
   const [statusBg, setStatusBg] = useState<string>('')
   const navigate = useNavigate();
   // -- 2. Ciclo de vida.
@@ -32,15 +32,15 @@ export default function BookCard(props: Props) {
     }
   }
   const mappingImage = () => {
+    if (book?.coverImage) {
+      return <img key={`${book.bookID}-${index}`} src={book.coverImage} className="object-cover rounded shadow w-32 h-32" />
+    }
     return <img src='/assets/book_found.png' className="object-cover rounded shadow w-32 h-32" />
   }
   const onDetailBook = () => {
     try {
       navigate({
         to: `/dashboard/book/${book?.bookID}`,
-        viewTransition: {
-          types: ['container-form'],
-        },
       });
     } catch (err: unknown) {
       console.error(err);
@@ -50,9 +50,9 @@ export default function BookCard(props: Props) {
 
   // -- 4. Render.
   return (
-    <Card 
+    <Card
+      key={`${book?.bookID}-${index}`}
       className="p-4 m-0 transition-transform duration-200 ease-in-out hover:scale-[1.03] hover:shadow-lg cursor-pointer"
-      style={{ viewTransitionName: 'container-form' }}
       onClick={onDetailBook}
     >
       <CardTitle className="flex flex-row items-center justify-center md:justify-start gap-1 md:mx-4">
@@ -71,11 +71,10 @@ export default function BookCard(props: Props) {
             <div>
               <p className="text-sm opacity-50">Detalles</p>
               <div className="flex flex-col items-start justify-start gap-1 flex-wrap">
-                <p className="font-semibold text-xs md:text-sm">Autor: {book?.authorID}</p>
-                <p className="font-semibold text-xs md:text-sm">Editorial: {book?.publisherID}</p>
+                <p className="font-semibold text-xs md:text-sm">Autor: {book?.author?.name}</p>
+                <p className="font-semibold text-xs md:text-sm">Editorial: {book?.publisher?.name}</p>
                 {/* <p className="font-semibold text-xs md:text-sm">ISBN: {book?.ISBN}</p> */}
-                {/* <p className="font-semibold text-xs md:text-sm">Año de lanzamiento: {book?.release}</p> */}
-                <p className="font-semibold text-xs md:text-sm">Generos: {book?.categoryID}</p>
+                <p className="font-semibold text-xs md:text-sm">Generos: {book?.category?.name}</p>
                 <p className="font-semibold text-xs md:text-sm">Paginas: {book?.page}</p>
                 <p className="font-semibold text-xs md:text-sm">Precio: {book?.price}</p>
                 <Badge variant="default" className={`h-6 select-none pointer-events-none items-center ${statusBg} hover:bg-inherit hover:cursor-default`}>

@@ -1,5 +1,5 @@
 import { BaseCombobox } from "@/components/combo-box";
-import { getAuthors } from "@/services/author/get-all";
+import { getAllAuthors } from "@/services/author/get-all";
 
 export function AuthorCombobox({
   value,
@@ -11,7 +11,7 @@ export function AuthorCombobox({
   return (
     <BaseCombobox
       placeholder="Seleccionar autor"
-      fetchOptions={getAuthors}
+      fetchOptions={getAllAuthors}
       value={value}
       onChange={onChange}
     />

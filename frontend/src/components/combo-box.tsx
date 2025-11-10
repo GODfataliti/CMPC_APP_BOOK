@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "./ui/command";
 import type { Option } from "@/types";
 import { cn } from "@/lib/utils";
+import { adaptToOptions } from "@/adapters/options.adapter";
 
 export function BaseCombobox({
   placeholder,
@@ -25,7 +26,8 @@ export function BaseCombobox({
     const load = async () => {
       setLoading(true);
       try {
-        const data = await fetchOptions();
+        const dataRow = await fetchOptions();
+        const data = adaptToOptions(dataRow);
         setOptions(data);
       } catch (err) {
         console.error("Error fetching options:", err);
@@ -46,7 +48,7 @@ export function BaseCombobox({
           className="w-[240px] justify-between"
         >
           {value
-            ? options.find((opt) => opt.value === value)?.label
+            ? options.find((opt) => opt.ID === value)?.name
             : placeholder}
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -64,8 +66,8 @@ export function BaseCombobox({
               <CommandGroup>
                 {options.map((opt) => (
                   <CommandItem
-                    key={opt.value}
-                    value={opt.value}
+                    key={opt.ID}
+                    value={opt.ID}
                     onSelect={(currentValue) => {
                       onChange(currentValue === value ? "" : currentValue);
                       setOpen(false);
@@ -74,10 +76,10 @@ export function BaseCombobox({
                     <CheckIcon
                       className={cn(
                         "mr-2 h-4 w-4",
-                        value === opt.value ? "opacity-100" : "opacity-0"
+                        value === opt.ID ? "opacity-100" : "opacity-0"
                       )}
                     />
-                    {opt.label}
+                    {opt.name}
                   </CommandItem>
                 ))}
               </CommandGroup>

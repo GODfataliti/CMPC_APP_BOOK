@@ -19,6 +19,8 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { createBook } from '@/services/book'
+import { uploadImage } from '@/services/uploads'
 
 export function CreateBook() {
   const [open, setOpen] = useState(false)
@@ -28,17 +30,33 @@ export function CreateBook() {
   >('general')
 
   const [formData, setFormData] = useState<
-    Partial<Omit<Book, 'bookID' | 'createdAt' | 'updatedAt' | 'deletedAt'>>
+    Partial<Omit<Book, 'bookID' | 'author' | 'publisher' | 'category' | 'createdAt' | 'updatedAt' | 'deletedAt'>>
   >({
-    title: '',
     authorID: '',
     publisherID: '',
-    page: 0,
+    categoryID: '',
+    title: '',
     price: 0,
+    page: 0,
+    stock: 0,
     availability: true,
     coverImage: '',
-    stock: 0,
   })
+
+  const onClean = () => {
+    setFormData({
+      authorID: '',
+      publisherID: '',
+      categoryID: '',
+      title: '',
+      price: 0,
+      page: 0,
+      stock: 0,
+      availability: true,
+      coverImage: '',
+    })
+    setCurrentTab('general')
+  }
 
   const handleChange = (
     field: keyof Book,
@@ -55,9 +73,14 @@ export function CreateBook() {
 
     try {
       setLoading(true)
-      await new Promise((r) => setTimeout(r, 1000))
+      await createBook(formData).then((res) => {
+        toast.success('Libro creado exitosamente.')
+      }).catch(() => {
+        toast.error('Error al crear el libro, intente nuevamente.')
+      }).finally(() => {
+        onClean()
+      })
 
-      toast.success('Libro creado exitosamente.')
       setOpen(false)
     } catch (err) {
       toast.error('Error al crear el libro, intente nuevamente.')
@@ -160,10 +183,11 @@ export function CreateBook() {
                 <div className="flex flex-col gap-2">
                   <Label>Precio</Label>
                   <Input
-                    type="text"
+                    type="number"
+                    min={0}
                     placeholder="Ej: 15990"
                     value={formData.price ?? ''}
-                    onChange={(e) => handleChange('price', e.target.value)}
+                    onChange={(e) => handleChange('price', Number(e.target.value))}
                   />
                 </div>
               </div>
@@ -184,14 +208,23 @@ export function CreateBook() {
                     <Input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => {
+                      onChange={async (e) => {
                         const file = e.target.files?.[0]
-                        if (file) {
-                          const reader = new FileReader()
-                          reader.onload = () => {
-                            handleChange('coverImage', reader.result as string)
-                          }
-                          reader.readAsDataURL(file)
+                        if (!file) return
+
+                        try {
+                          toast.info('Subiendo imagen, por favor espera... ⏳')
+                          await uploadImage(file).then((res) => {
+                            toast.success('Imagen subida correctamente 🎉')
+                            if (res.status < 400) {
+                              handleChange('coverImage', res)
+                            }
+                          }).catch((error) => {
+                            toast.error(error.message || 'No se pudo subir la imagen 😭')
+                            handleChange('coverImage', '')
+                          })
+                        } catch (error: any) {
+                          console.error(error)
                         }
                       }}
                     />
@@ -215,7 +248,7 @@ export function CreateBook() {
                     placeholder="Ej: 100"
                     min={0}
                     value={formData.stock ?? ''}
-                    onChange={(e) => handleChange('stock', e.target.value)}
+                    onChange={(e) => handleChange('stock', Number(e.target.value))}
                   />
                 </div>
 

@@ -114,7 +114,7 @@ export class BookController {
     summary: 'Update book by ID',
     description: 'Updates an existing book by its ID.',
   })
-  @Put('/:bookID')
+  @Put('update/:bookID')
   async update(
     @Param('bookID', new IsUUIDPipe()) bookID: string,
     @Body() body: UpdateBookDTO,
@@ -145,7 +145,7 @@ export class BookController {
     summary: 'Delete book by ID',
     description: 'Deletes a book by its unique ID (soft delete).',
   })
-  @Delete('/:bookID')
+  @Delete('delete/:bookID')
   async delete(
     @Param('bookID', new IsUUIDPipe()) bookID: string,
     @Res() res: Response,

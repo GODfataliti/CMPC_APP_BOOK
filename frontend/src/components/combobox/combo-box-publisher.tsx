@@ -1,5 +1,5 @@
 import { BaseCombobox } from "@/components/combo-box";
-import { getPublishers } from "@/services/publisher/get-all";
+import { getAllPublishers } from "@/services/publisher/get-all";
 
 export function PublisherCombobox({
   value,
@@ -11,7 +11,7 @@ export function PublisherCombobox({
   return (
     <BaseCombobox
       placeholder="Seleccionar editorial"
-      fetchOptions={getPublishers}
+      fetchOptions={getAllPublishers}
       value={value}
       onChange={onChange}
     />

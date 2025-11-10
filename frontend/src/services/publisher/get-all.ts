@@ -1,4 +1,3 @@
-import type { Option } from '@/types'
 import { VITE_API_URL } from '@/config'
 import { sessionStore } from '@/stores'
 
@@ -28,7 +27,7 @@ export async function getAllPublishers(): Promise<any> {
       )
     }
 
-    return response.data
+    return response.publishers
   } catch (err: unknown) {
     console.error(err)
     throw {
@@ -36,19 +35,4 @@ export async function getAllPublishers(): Promise<any> {
       status: 500,
     }
   }
-}
-
-export async function getPublishers(): Promise<Array<Option>> {
-  return new Promise((resolve) =>
-    setTimeout(
-      () =>
-        resolve([
-          { value: 'nova', label: 'Nova' },
-          { value: 'minotauro', label: 'Minotauro' },
-          { value: 'planeta', label: 'Editorial Planeta' },
-          { value: 'b-de-books', label: 'B de Books' },
-        ]),
-      600,
-    ),
-  )
 }

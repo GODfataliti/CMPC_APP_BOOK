@@ -1,8 +1,23 @@
-import type { UpdateBookDTO, UpdateBooksRES } from './types'
+import type { UpdateBooksRES } from './types'
+import type { Book } from '@/types'
 import { sessionStore } from '@/stores'
 import { VITE_API_URL } from '@/config'
 
-export async function updateBook(payload: UpdateBookDTO): Promise<any> {
+export async function updateBook(
+  bookID: string,
+  payload: Partial<
+    Omit<
+      Book,
+      | 'bookID'
+      | 'author'
+      | 'publisher'
+      | 'category'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+    >
+  >,
+): Promise<any> {
   try {
     const { token } = sessionStore.getState()
 
@@ -17,7 +32,7 @@ export async function updateBook(payload: UpdateBookDTO): Promise<any> {
     }
 
     const response: UpdateBooksRES = await fetch(
-      `${VITE_API_URL}api/book/update`,
+      `${VITE_API_URL}api/book/update/${bookID}`,
       options,
     ).then((res) => res.json())
 

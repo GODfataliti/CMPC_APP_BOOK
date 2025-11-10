@@ -16,30 +16,32 @@ interface Props {
 }
 
 export function BookList({ className }: Props) {
-  // 1. Manejo de estado.
+  // 1. Estado
   const { books } = booksStore();
-  const [sortFields, setSortFields] = useState<Array<string>>([]); // e.g. ['author', 'release']
+  const [sortFields, setSortFields] = useState<Array<string>>([]);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const { isLoading } = useRouterState();
+
+  // 2. Ordenamiento avanzado
   const sortedBooks = useMemo(() => {
     if (!books) return [];
     if (sortFields.length === 0) return books;
 
+    // Obtener valor anidado (author.name, publisher.name, etc.)
+    const getNestedValue = (obj: any, path: string) => {
+      return path.split(".").reduce((acc, key) => acc?.[key], obj);
+    };
+
     const getValue = (item: any, field: string) => {
-      const raw = item?.[field];
+      const raw = getNestedValue(item, field);
 
-      // Disponibilidad: tratar null como false
-      if (field === "availability") {
-        if (raw === true) return true;
-        return false; // false o null o undefined => false
-      }
+      // Disponibilidad: null = false
+      if (field === "availability") return raw === true;
 
-      // Si viene como array (ej: categories) tomar primera entrada o join
-      if (Array.isArray(raw)) {
-        return raw.filter(Boolean).join(", ") || "";
-      }
+      // Array → texto unificado
+      if (Array.isArray(raw)) return raw.filter(Boolean).join(", ") || "";
 
-      // Normal strings / numbers / booleans
+      // null / undefined → cadena vacía
       if (raw === null || raw === undefined) return "";
 
       return raw;
@@ -50,37 +52,33 @@ export function BookList({ className }: Props) {
         const va = getValue(a, field);
         const vb = getValue(b, field);
 
-        // booleans (availability) ya normalizados a true/false
+        // ✅ booleanos
         if (typeof va === "boolean" && typeof vb === "boolean") {
-          // convert to numbers for comparison (true = 1, false = 0)
           const comp = Number(va) - Number(vb);
           if (comp !== 0) return sortDirection === "asc" ? comp : -comp;
           continue;
         }
 
-        // numbers
-        if (!isNaN(Number(va)) && !isNaN(Number(vb)) && va !== "" && vb !== "") {
-          const comp = Number(va) - Number(vb);
+        // ✅ numéricos
+        const numA = Number(va);
+        const numB = Number(vb);
+        if (!isNaN(numA) && !isNaN(numB) && va !== "" && vb !== "") {
+          const comp = numA - numB;
           if (comp !== 0) return sortDirection === "asc" ? comp : -comp;
           continue;
         }
 
-        // strings (incluye authors)
-        const aStr = String(va);
-        const bStr = String(vb);
-        const comp = aStr.localeCompare(bStr, "es", { sensitivity: "base" });
+        // ✅ strings (ej: author.name)
+        const strA = String(va);
+        const strB = String(vb);
+        const comp = strA.localeCompare(strB, "es", { sensitivity: "base" });
         if (comp !== 0) return sortDirection === "asc" ? comp : -comp;
-
-        // si iguales, seguir al siguiente campo
       }
       return 0;
     });
   }, [books, sortFields, sortDirection]);
 
-  // 2. Ciclo de vida.
-  // 3. Metodos.
-
-  // 4. Render.
+  // 3. Render
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 animate-pulse">
@@ -97,10 +95,10 @@ export function BookList({ className }: Props) {
       <div className="flex flex-col sm:flex-row justify-between gap-2 items-center mb-4 px-2">
         <div className="flex flex-wrap items-center gap-4">
           {[
-            { value: "name", label: "Nombre" },
-            { value: "author", label: "Autor" },
-            { value: "publisher", label: "Editorial" },
-            { value: "release", label: "Fecha" },
+            { value: "title", label: "Nombre" },
+            { value: "author.name", label: "Autor" },
+            { value: "publisher.name", label: "Editorial" },
+            { value: "category.name", label: "Categoría" },
             { value: "availability", label: "Disponibilidad" },
           ].map((opt) => (
             <Label
@@ -141,7 +139,7 @@ export function BookList({ className }: Props) {
           </Button>
         </div>
       </div>
-      
+
       {/* Paginación */}
       <BookPagination />
 
@@ -149,17 +147,17 @@ export function BookList({ className }: Props) {
       <ScrollArea className="h-[calc(98vh-200px)] w-full items-center">
         <div
           className={cn(
-            "grid p-0 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-2.5 pt-4 m-2",
+            "grid p-0 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-2.5 pt-4 m-2",
             className
           )}
         >
           {sortedBooks.map((book, index) => (
-            <BookCard book={book} index={index} key={index} />
+            <BookCard book={book} index={index} key={book.bookID} />
           ))}
         </div>
       </ScrollArea>
 
-      {/* Paginación */}
+      {/* Paginación inferior */}
       <BookPagination />
     </div>
   );

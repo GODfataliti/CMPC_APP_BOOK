@@ -1,4 +1,3 @@
-import type { Option } from '@/types'
 import { VITE_API_URL } from '@/config'
 import { sessionStore } from '@/stores'
 
@@ -28,7 +27,7 @@ export async function getAllAuthors(): Promise<any> {
       )
     }
 
-    return response.data
+    return response.authors
   } catch (err: unknown) {
     console.error(err)
     throw {
@@ -36,20 +35,4 @@ export async function getAllAuthors(): Promise<any> {
       status: 500,
     }
   }
-}
-
-// --- Simulación de endpoints ---
-export async function getAuthors(): Promise<Array<Option>> {
-  return new Promise((resolve) =>
-    setTimeout(
-      () =>
-        resolve([
-          { value: 'brandon-sanderson', label: 'Brandon Sanderson' },
-          { value: 'patrick-rothfuss', label: 'Patrick Rothfuss' },
-          { value: 'neil-gaiman', label: 'Neil Gaiman' },
-          { value: 'ursula-le-guin', label: 'Ursula K. Le Guin' },
-        ]),
-      600,
-    ),
-  )
 }

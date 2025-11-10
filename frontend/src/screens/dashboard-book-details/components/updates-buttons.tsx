@@ -6,6 +6,7 @@ import { EditBook } from './book-editar'
 import type { Book } from '@/types';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
+import { deleteBook } from '@/services/book';
 
 interface UpdatesButtonsProps {
   book: Book;
@@ -23,9 +24,9 @@ export function Buttons(props: UpdatesButtonsProps) {
   const onDelete = async () => {
     try {
       setIsDeleting(true);
-      // simulación de request (aquí llamarías a tu servicio real)
-      await new Promise((r) => setTimeout(r, 1200));
-      toast.success("Libro eliminado correctamente");
+      await deleteBook(book.bookID).then((res) => {
+        toast.success("Libro eliminado correctamente");
+      })
       navigate({ to: "/dashboard" });
     } catch {
       toast.error("Error al eliminar el libro");

@@ -1,36 +1,22 @@
-import type { CreateBookPayload, CreateBooksRES } from './types'
 import type { Book } from '@/types'
-import { sessionStore } from '@/stores'
 import { VITE_API_URL } from '@/config'
+import { sessionStore } from '@/stores'
 
-export async function createBook(
-  payload: Partial<
-    Omit<
-      Book,
-      | 'bookID'
-      | 'author'
-      | 'publisher'
-      | 'category'
-      | 'createdAt'
-      | 'updatedAt'
-      | 'deletedAt'
-    >
-  >,
-): Promise<Book> {
+export async function deleteBook(ID: string): Promise<Book> {
   try {
     const { token } = sessionStore.getState()
+
     const options: RequestInit = {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(payload),
     }
 
-    const response: CreateBooksRES = await fetch(
-      `${VITE_API_URL}api/book/create`,
+    const response: any = await fetch(
+      `${VITE_API_URL}api/book/delete/${ID}`,
       options,
     ).then((res) => res.json())
 
@@ -38,7 +24,7 @@ export async function createBook(
       throw new Error(
         response.GLOSADESC
           ? response.GLOSADESC
-          : 'Problema al agregar el libro',
+          : 'Problemas al obtener la información del libro',
       )
     }
 
@@ -46,7 +32,8 @@ export async function createBook(
   } catch (err: unknown) {
     console.error(err)
     throw {
-      message: `Ocurrio un error al agregar el libro, intente de nuevo.`,
+      message:
+        'Ocurrio un error al obtener la información del libro, intente de nuevo.',
       status: 500,
     }
   }
