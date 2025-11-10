@@ -78,13 +78,13 @@ export class BookController {
     @Query() query: GetBooksQueryDTO,
     @Res() res: Response,
   ): Promise<void> {
-    const books = await this.service.getBooksByParams(query ?? {});
+    const response = await this.service.getBooksByParams(query ?? {});
 
     res.status(HttpStatus.OK).send({
       status: HttpStatus.OK,
       message: 'Books fetched successfully',
       // filters: query,
-      data: books,
+      data: response,
     });
     return;
   }

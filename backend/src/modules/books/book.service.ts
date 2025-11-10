@@ -28,7 +28,9 @@ export class BookService {
   }
 
   // --------------------------------------------------------
-  async getBooksByParams(query: Partial<GetBooksQueryDTO>): Promise<Book[]> {
+  async getBooksByParams(
+    query: Partial<GetBooksQueryDTO>,
+  ): Promise<{ books: Book[]; page: number; pages: number }> {
     const {
       page = 1,
       general = '',
@@ -38,6 +40,7 @@ export class BookService {
       publisher = '',
       available = null,
     } = query;
+    const limit = 20;
     const where: FindOptions<IBookDetails>['where'] = {};
 
     // 🔍 Modo global
@@ -63,15 +66,27 @@ export class BookService {
     if (available !== undefined && available !== null)
       where.availability = available === true;
 
+    // 📄 Consulta total
+    const totalCount = await this.bookModel.count({
+      where,
+      include: ['author', 'publisher', 'category'],
+    });
+
     const books = await this.bookModel.findAll({
       where,
       include: ['author', 'publisher', 'category'],
-      limit: 20,
+      limit,
       offset: (page - 1) * 20,
       order: [['createdAt', 'DESC']],
     });
 
-    return books;
+    const totalPages = Math.ceil(totalCount / limit);
+
+    return {
+      books,
+      page,
+      pages: totalPages,
+    };
   }
 
   // --------------------------------------------------------
