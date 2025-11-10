@@ -74,10 +74,10 @@ export default function LogCard(props: Props) {
           </div>
 
           <div className="flex flex-col gap-0 flex-wrap py-1">
-            <div className="flex flex-row gap-1">
-              <p className="text-md font-semibold">{log?.user.email ?? ''}</p>
+              <div className="flex flex-row gap-1">
+                <p className="text-md font-semibold">{log?.user?.email ?? ''}</p>
+              </div>
             </div>
-          </div>
         </div>
       </CardContent >
 

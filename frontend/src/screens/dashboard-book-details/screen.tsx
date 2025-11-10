@@ -5,8 +5,10 @@ import { ModeToggle } from "@/components/mode-toggle";
 import {
   Breadcrumb,
   BreadcrumbItem,
+  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -33,6 +35,10 @@ export function BookDetailPage() {
             <Separator orientation="vertical" className="h-4 mx-2" />
             <Breadcrumb>
               <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/dashboard">Libros</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbPage>Detalle</BreadcrumbPage>
                 </BreadcrumbItem>
