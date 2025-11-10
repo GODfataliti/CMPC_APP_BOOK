@@ -186,10 +186,10 @@ export function EditBook({ book, onUpdate }: EditBookProps) {
                 <div className="flex flex-col gap-2">
                   <Label>Precio</Label>
                   <Input
-                    type="text"
+                    type="number"
                     placeholder="Ej: 15990"
                     value={formData.price ?? ''}
-                    onChange={(e) => handleChange('price', e.target.value)}
+                    onChange={(e) => handleChange('price', Number(e.target.value))}
                   />
                 </div>
               </div>
@@ -241,7 +241,7 @@ export function EditBook({ book, onUpdate }: EditBookProps) {
                     placeholder="Ej: 100"
                     min={0}
                     value={formData.stock ?? ''}
-                    onChange={(e) => handleChange('stock', e.target.value)}
+                    onChange={(e) => handleChange('stock', Number(e.target.value))}
                   />
                 </div>
 

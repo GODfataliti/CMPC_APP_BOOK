@@ -94,6 +94,33 @@ export class BookSeed {
         availability: true,
       },
     ];
+
+    const MarieLu = find(authors, 'Marie Lu');
+    const MarieLuBooks: BookInputData[] = [
+      {
+        title: 'Warcross',
+        authorID: MarieLu,
+        publisherID: Nova,
+        categoryID: FantasyCategory,
+        coverImage: 'https://images.isbndb.com/covers/6389103482330.jpg',
+        page: 520,
+        stock: 10,
+        price: 20990,
+        availability: true,
+      },
+      {
+        title: 'Wildcar',
+        authorID: MarieLu,
+        publisherID: Nova,
+        categoryID: FantasyCategory,
+        coverImage: 'https://images.isbndb.com/covers/24203143485704.jpg',
+        page: 488,
+        stock: 10,
+        price: 20990,
+        availability: true,
+      },
+    ];
+
     const JRR_Tolkien = find(authors, 'J.R.R. Tolkien');
     const Minotauro = find(publishers, 'Minotauro');
     // Tolkien
@@ -114,7 +141,18 @@ export class BookSeed {
         authorID: JRR_Tolkien,
         publisherID: Minotauro,
         categoryID: FantasyCategory,
-        coverImage: 'https://images.isbndb.com/covers/23986223485194.jpg',
+        coverImage: 'https://images.isbndb.com/covers/23213373485194.jpg',
+        page: 1007,
+        stock: 10,
+        price: 20990,
+        availability: true,
+      },
+      {
+        title: 'Warcross',
+        authorID: JRR_Tolkien,
+        publisherID: Minotauro,
+        categoryID: FantasyCategory,
+        coverImage: 'https://images.isbndb.com/covers/6389103482330.jpg',
         page: 1007,
         stock: 10,
         price: 20990,
@@ -283,6 +321,7 @@ export class BookSeed {
       ...TolkienBooks,
       ...RowlingBooks,
       ...MartinBooks,
+      ...MarieLuBooks,
     ]);
     console.log('✅ Books seeded.');
   }

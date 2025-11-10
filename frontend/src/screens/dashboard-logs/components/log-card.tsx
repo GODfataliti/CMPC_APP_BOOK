@@ -1,4 +1,4 @@
-import { CalendarSync, FileUser } from "lucide-react";
+import { CalendarSync, FileUser, UserPen } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Log } from "@/types";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -11,7 +11,7 @@ interface Props {
   log?: Log;
 }
 
-export default function BookCard(props: Props) {
+export default function LogCard(props: Props) {
   // -- 1. Manejo de estado.
   const { log, index } = props;
   const [statusBg, setStatusBg] = useState<string>('')
@@ -56,20 +56,32 @@ export default function BookCard(props: Props) {
             </div>
 
             <div className="py-2">
-              <div className="flex flex-row gap-1 md:gap-1 flex-wrap">
+              <div className="grid md:grid-cols-2 gap-4 sm:grid-cols-1">
                 <p className="text-lg md:text-xl font-semibold">Usuario: {log?.userId ?? ""}</p>
-                <p className="text-lg md:text-xl font-semibold">Coleccion: {log?.entity ?? ""}</p>
-                <p className="text-lg md:text-xl font-semibold">Identificador: {log?.entityId ?? ""}</p>
+                <p className="text-lg md:text-xl font-semibold">Coleccion afectada: {log?.entity ?? ""}</p>
                 <p className="text-lg md:text-xl font-semibold">Fecha: {formatDate(log?.createdAt)}</p>
+                <p className="text-lg md:text-xl font-semibold">Identificador: {log?.entityId ?? ""}</p>
               </div>
             </div>
+
           </div>
         </div>
 
         <Separator className="my-2" />
+        <div className="flex flex-row items-center justify-start gap-4">
+          <div className="flex p-2">
+            <UserPen className="w-8 h-8 stroke-primary" />
+          </div>
+
+          <div className="flex flex-col gap-0 flex-wrap py-1">
+            <div className="flex flex-row gap-1">
+              <p className="text-md font-semibold">{log?.user.email ?? ''}</p>
+            </div>
+          </div>
+        </div>
       </CardContent >
 
-      <CardFooter className="mx-2 mb-1 p-1 flex justify-end">
+      <CardFooter className="mx-2 mb-1 flex justify-end">
         <div className="flex flex-row items-center justify-center gap-2.5">
           <CalendarSync className="w-4 h-4 light:stroke-gray-500 opacity-60" />
           <p className="text-xs text-gray-400 select-none opacity-80 text-wrap">Última actualización: {formatDate(log?.updatedAt)}</p>

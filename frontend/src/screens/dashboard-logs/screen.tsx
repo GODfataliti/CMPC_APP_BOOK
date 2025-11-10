@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLoaderData } from "@tanstack/react-router";
+import { LogList } from "./components/logs-list";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
@@ -42,7 +43,7 @@ export default function LogsPage() {
           <div className="w-full">
 
             {/* -- Listado de libros --  */}
-            <BookList />
+            <LogList />
 
           </div>
         </div>

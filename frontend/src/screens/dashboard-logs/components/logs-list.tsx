@@ -1,4 +1,5 @@
 import { useRouterState } from "@tanstack/react-router";
+import LogCard from "./log-card";
 import type { Log } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -34,16 +35,16 @@ export function LogList() {
     <div>
       {/* -- Detalles -- */}
       <div className="mx-4 pb-4 border-b border-gray-200 mb-4">
-        <p className="text-md font-bold">Modificaciones ({logs?.length ?? 0})</p>
+        <p className="text-md font-bold">Modificaciones ({logs.length})</p>
       </div>
       {/* -- Paginación -- */}
       {/* <LogsPagination /> */}
 
       {/* -- Consultas -- */}
       <ScrollArea className="h-[calc(100vh-200px)] w-full items-center">
-        {logs.map((search: Log, index: number) => {
+        {logs.map((log: Log, index: number) => {
           return (
-            <Log search={search} index={index} key={index} />
+            <LogCard log={log} index={index} key={index} />
           )
         })}
       </ScrollArea>

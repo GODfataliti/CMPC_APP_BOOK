@@ -5,9 +5,10 @@ import { Book } from './book.model';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { LogModule } from '../logs/log.module';
 import { AuthMiddleware } from 'src/middlewares/auth.middleware';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Book]), LogModule],
+  imports: [SequelizeModule.forFeature([Book]), LogModule, JwtModule],
   controllers: [BookController],
   providers: [BookService],
   exports: [SequelizeModule, BookService],

@@ -8,6 +8,10 @@ import {
   ForeignKey,
 } from 'sequelize-typescript';
 import { User } from '../users/user.model';
+import { Author } from '../authors/author.model';
+import { Publisher } from '../publishers/publisher.model';
+import { Book } from '../books/book.model';
+import { Category } from '../categories/category.model';
 
 export type LogAction = 'CREATE' | 'UPDATE' | 'DELETE';
 export type LogEntity = 'book' | 'author' | 'publisher' | 'category';
@@ -60,7 +64,6 @@ export class Log extends Model<ILogDetails, LogInputData> {
   })
   entity!: LogEntity;
 
-  @Index
   @Column({
     type: DataType.UUID,
     allowNull: false,

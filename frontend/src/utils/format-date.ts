@@ -1,12 +1,22 @@
 import { Temporal } from '@js-temporal/polyfill'
 
-export function formatDate(date: string | undefined): string {
-  // input: 2025-06-09T23:02:54.303Z
-  // output: 09/06/2025 23:02:54
-  if (!date) {
+export function formatDate(date?: string | Date | null): string {
+  if (!date) return ''
+
+  try {
+    // 🕓 Convertir a Temporal.Instant sin importar el tipo
+    const instant =
+      typeof date === 'string'
+        ? Temporal.Instant.from(date)
+        : Temporal.Instant.from(date.toISOString())
+
+    // 🇨🇱 Formato local Chile
+    return instant.toLocaleString('es-CL', {
+      dateStyle: 'short',
+      timeStyle: 'medium',
+    })
+  } catch {
+    // En caso de formato inválido
     return ''
   }
-
-  const dt = Temporal.Instant.from(date)
-  return dt.toLocaleString('es-CL')
 }

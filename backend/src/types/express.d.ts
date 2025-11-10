@@ -7,7 +7,7 @@ declare global {
       email?: string;
     }
 
-    export interface Request {
+    interface Request {
       user?: UserPayload;
       decoded?: any;
     }

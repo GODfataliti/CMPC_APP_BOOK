@@ -13,10 +13,14 @@ import { SeedService } from './database/seed/seed.service';
 import { UploadsModule } from './modules/uploads/uploads.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     // -- Core.
+    JwtModule.register({
+      global: true,
+    }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: env.DATABASE_HOST,
@@ -27,6 +31,7 @@ import { join } from 'path';
       autoLoadModels: true,
       synchronize: true,
       timezone: '-03:00', // Chile
+      logging: false,
     }),
 
     // -- Seed.

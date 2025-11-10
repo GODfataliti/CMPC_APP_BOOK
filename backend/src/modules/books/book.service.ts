@@ -94,7 +94,12 @@ export class BookService {
   // --------------------------------------------------------
   async createBook(data: CreateBookDTO, userId: string): Promise<Book> {
     const book = await this.bookModel.create(data);
-    await this.logService.createLog(userId, 'CREATE', 'book', book.bookID);
+    await this.logService.createLog(
+      userId,
+      'CREATE',
+      'book',
+      book.getDataValue('bookID'),
+    );
     return book;
   }
 
@@ -109,12 +114,7 @@ export class BookService {
       returning: true,
     });
     if (updatedBook) {
-      await this.logService.createLog(
-        userId,
-        'UPDATE',
-        'book',
-        updatedBook.bookID,
-      );
+      await this.logService.createLog(userId, 'UPDATE', 'book', bookID);
     }
     return updatedBook;
   }

@@ -30,7 +30,9 @@ export class LogService {
   }
 
   async findAll(): Promise<Log[]> {
-    const logs: Log[] = await this.logModel.findAll();
+    const logs: Log[] = await this.logModel.findAll({
+      include: ['user'],
+    });
     return logs;
   }
 }

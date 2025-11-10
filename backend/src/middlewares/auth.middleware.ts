@@ -8,6 +8,7 @@ import {
 import { Request, Response, NextFunction } from 'express';
 import { JwtService, TokenExpiredError } from '@nestjs/jwt';
 import { env } from 'src/config/env';
+import { SafeUser } from 'src/modules/auth/types/safe-user';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -18,7 +19,7 @@ export class AuthMiddleware implements NestMiddleware {
 
   use(request: Request, response: Response, next: NextFunction) {
     try {
-      const auth = request.headers?.authorization;
+      const auth = request.headers?.authorization as string;
 
       if (!auth) {
         throw new HttpException('Token missing', 401);
@@ -30,7 +31,7 @@ export class AuthMiddleware implements NestMiddleware {
         throw new HttpException('Invalid prefix', 401);
       }
 
-      const decoded = this.jwt.verify(token, {
+      const decoded = this.jwt.verify<SafeUser>(token, {
         secret: env.JWT_SECRET,
       });
       request['decoded'] = decoded;

@@ -14,7 +14,7 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { BookService } from './book.service';
 import { IsUUIDPipe } from '../../pipes';
-import type { Response } from 'express';
+import type { Request, Response } from 'express';
 import { CreateBookDTO, GetBooksQueryDTO, UpdateBookDTO } from './DTOs';
 
 @ApiTags('Books')
@@ -101,7 +101,7 @@ export class BookController {
     @Req() req: Request,
     @Res() res: Response,
   ): Promise<void> {
-    const userId = req.user?.userID;
+    const userId = req.user?.userId ?? '';
     const book = await this.service.createBook(body, userId);
 
     res.status(HttpStatus.CREATED).send({
@@ -124,7 +124,7 @@ export class BookController {
     @Req() req: Request,
     @Res() res: Response,
   ): Promise<void> {
-    const userId = req.user?.userID;
+    const userId = req.user?.userId ?? '';
     const book = await this.service.getBookById(bookID);
 
     if (!book) {
@@ -156,7 +156,7 @@ export class BookController {
     @Req() req: Request,
     @Res() res: Response,
   ): Promise<void> {
-    const userId = req.user?.userID;
+    const userId = req.user?.userId ?? '';
     const book = await this.service.getBookById(bookID);
 
     if (!book) {

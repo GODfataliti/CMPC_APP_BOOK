@@ -18,6 +18,11 @@ export class AuthorSeed {
         description: 'Escritor estadounidense de fantasía.',
       },
       {
+        name: 'Marie Lu',
+        description:
+          'Marie Lu es la autora de la esperadísima bilogía Warcross, de la exitosa trilogía del New York Times.',
+      },
+      {
         name: 'J.R.R. Tolkien',
         description: 'Escritor inglés, autor de El Señor de los Anillos.',
       },

@@ -1,3 +1,5 @@
+import type { User } from './user.type'
+
 export type LogAction = 'CREATE' | 'UPDATE' | 'DELETE'
 export type LogEntity = 'book' | 'author' | 'publisher' | 'category'
 
@@ -10,4 +12,5 @@ export interface Log {
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null
+  user?: User
 }
