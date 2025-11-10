@@ -19,27 +19,27 @@ services:
   # * ------------------------------
   # *   Frontend
   # * ------------------------------
-  # books-app:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile.dev
-  #   container_name: books-app
-  #   ports:
-  #     - "${FRONTEND_PORT}:3174"
-  #   networks:
-  #     - cmpc-net
-  #   volumes:
-  #     - ./frontend/src:/usr/src/app/src
-  #   command: npm run dev
-  #   develop:
-  #     watch:
-  #       - action: sync
-  #         path: ./frontend/src
-  #         target: /usr/src/app/src
-  #         ignore:
-  #           - node_modules
-  #   environment:
-  #     - PORT=${FRONTEND_PORT}
+  books-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: books-app
+    ports:
+      - "${FRONTEND_PORT}:3174"
+    networks:
+      - cmpc-net
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+    command: npm run start:prod
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend/src
+          target: /usr/src/app/src
+          ignore:
+            - node_modules
+    environment:
+      - PORT=${FRONTEND_PORT}
 
   # * ------------------------------
   # *   API Books
@@ -66,7 +66,11 @@ services:
     environment:
       - DATABASE_HOST=books-db
       - DATABASE_PORT=${BOOKS_DATABASE_PORT}
+      - DATABASE_NAME=${BOOKS_DATABASE_NAME}
+      - DATABASE_USER=${BOOKS_DATABASE_USER}
+      - DATABASE_PASSWORD=${BOOKS_DATABASE_PASSWORD}
       - PORT=${API_BOOKS_PORT}
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - books-db
 

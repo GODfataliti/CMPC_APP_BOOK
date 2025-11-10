@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { PlusCircle } from 'lucide-react'
 import { toast } from 'sonner'
+import { useNavigate } from '@tanstack/react-router'
 import type { Book } from '@/types'
 import {
   AuthorCombobox,
@@ -25,6 +26,7 @@ import { uploadImage } from '@/services/uploads'
 export function CreateBook() {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState<
     'general' | 'detalles' | 'inventario'
   >('general')
@@ -73,7 +75,8 @@ export function CreateBook() {
 
     try {
       setLoading(true)
-      await createBook(formData).then((res) => {
+      await createBook(formData).then(() => {
+        navigate.call({ to: "/dashboard" }, { replace: false });
         toast.success('Libro creado exitosamente.')
       }).catch(() => {
         toast.error('Error al crear el libro, intente nuevamente.')

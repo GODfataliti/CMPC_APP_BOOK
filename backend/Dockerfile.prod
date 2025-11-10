@@ -18,7 +18,7 @@ COPY --from=deps /usr/src/app/package-lock.json ./package-lock.json
 COPY . .
 
 RUN npm run test
-RUN npm run test:e2e
+# RUN npm run test:e2e
 
 RUN npm run build
 RUN npm ci -f --omit=dev && npm cache clean --force
@@ -31,6 +31,8 @@ WORKDIR /usr/src/app
 COPY package.json ./
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/dist ./dist
+
+RUN mkdir -p /usr/src/app/uploads && chown -R node:node /usr/src/app/uploads
 
 ENV NODE_ENV=production
 

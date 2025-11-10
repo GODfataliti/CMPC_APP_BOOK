@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Publisher } from 'src/modules/publishers/publisher.model';
+import { Publisher } from '../../../modules/publishers/publisher.model';
 
 @Injectable()
 export class PublisherSeed {

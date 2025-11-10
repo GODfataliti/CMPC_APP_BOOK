@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Author } from 'src/modules/authors/author.model';
-import { Book, BookInputData } from 'src/modules/books/book.model';
-import { Category } from 'src/modules/categories/category.model';
-import { Publisher } from 'src/modules/publishers/publisher.model';
+import { Author } from '../../../modules/authors/author.model';
+import { Book, BookInputData } from '../../../modules/books/book.model';
+import { Category } from '../../../modules/categories/category.model';
+import { Publisher } from '../../../modules/publishers/publisher.model';
 
 @Injectable()
 export class BookSeed {

@@ -17,7 +17,7 @@ export async function updateBook(
       | 'deletedAt'
     >
   >,
-): Promise<any> {
+): Promise<Book> {
   try {
     const { token } = sessionStore.getState()
 
@@ -37,14 +37,12 @@ export async function updateBook(
     ).then((res) => res.json())
 
     if (response.status >= 400) {
-      throw new Error(
-        response.GLOSADESC
-          ? response.GLOSADESC
-          : 'Problema al actualizar la información del libro.',
-      )
+      throw {
+        message: 'Problema al actualizar la información del libro.',
+      }
     }
 
-    return response
+    return response.data
   } catch (err: unknown) {
     console.error(err)
     throw {

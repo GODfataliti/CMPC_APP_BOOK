@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Author } from 'src/modules/authors/author.model';
+import { Author } from '../../../modules/authors/author.model';
 
 @Injectable()
 export class AuthorSeed {

@@ -23,7 +23,7 @@ import { updateBook } from '@/services/book'
 
 interface EditBookProps {
   book?: Book
-  onUpdate?: () => void
+  onUpdate?: (book: Book) => void
 }
 
 export function EditBook({ book, onUpdate }: EditBookProps) {
@@ -76,12 +76,14 @@ export function EditBook({ book, onUpdate }: EditBookProps) {
       return
     }
 
-    try {
+      try {
       setLoading(true)
-      await updateBook(book!.bookID, formData)
-
-      toast.success('Libro actualizado exitosamente.')
-      onUpdate?.()
+      await updateBook(book!.bookID, formData).then((res) => {
+        if (res.bookID) {
+          onUpdate?.(res)
+        }
+        toast.success('Libro actualizado exitosamente.')
+      })
       setOpen(false)
     } catch (err) {
       toast.error('Error al actualizar el libro, intente nuevamente.')

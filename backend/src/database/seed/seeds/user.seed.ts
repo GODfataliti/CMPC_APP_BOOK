@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { SecureService } from 'src/modules/secure/secure.service';
-import { User } from 'src/modules/users/user.model';
+import { SecureService } from '../../../modules/secure/secure.service';
+import { User } from '../../../modules/users/user.model';
 
 @Injectable()
 export class UserSeed {

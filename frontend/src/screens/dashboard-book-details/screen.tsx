@@ -1,4 +1,4 @@
-import { useLoaderData, useParams } from "@tanstack/react-router";
+import { useLoaderData } from "@tanstack/react-router";
 import { Buttons } from "./components/updates-buttons";
 import { Detail } from "./components/detail";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -11,25 +11,19 @@ import {
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { updateBook } from "@/services/book";
 
 export function BookDetailPage() {
   // -- 1. Manejo de estado.
   const preloadedData = useLoaderData({ from: "/dashboard/book/$ID" });
-  const params = useParams({ from: "/dashboard/book/$ID" });
-
+  // const params = useParams({ from: "/dashboard/book/$ID" });
   const book = preloadedData;
   const imageSrc = book.coverImage && book.coverImage.trim() !== "" 
     ? book.coverImage
     : "/assets/book_banner.png";
 
-  // -- 2. Métodos.
-  const onUpdate = () => {
-    console.log('Actualizando libro', params.ID);
-  };
-  
-
-  // -- 3. Render.
+  // -- 2. Ciclo de vida.
+  // -- 3. Métodos.
+  // -- 4. Render.
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2">
@@ -47,7 +41,7 @@ export function BookDetailPage() {
           </div>
 
           <div className="flex items-center gap-2 ml-auto">
-            <Buttons book={book} onUpdate={onUpdate}/>
+            <Buttons book={book}/>
 
             <ModeToggle />
           </div>

@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start:prod": "vite --port 3174 --host",
     "build": "vite build && tsc",
     "serve": "vite preview",
     "test": "vitest run",

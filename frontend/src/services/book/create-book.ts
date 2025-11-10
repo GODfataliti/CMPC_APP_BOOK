@@ -1,4 +1,4 @@
-import type { CreateBookPayload, CreateBooksRES } from './types'
+import type { CreateBooksRES } from './types'
 import type { Book } from '@/types'
 import { sessionStore } from '@/stores'
 import { VITE_API_URL } from '@/config'

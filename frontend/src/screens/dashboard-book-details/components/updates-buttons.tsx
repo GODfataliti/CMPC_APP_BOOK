@@ -10,13 +10,11 @@ import { deleteBook } from '@/services/book';
 
 interface UpdatesButtonsProps {
   book: Book;
-  onUpdate?: () => void;
 }
-
 
 export function Buttons(props: UpdatesButtonsProps) {
   // 1. Manejo de estado.
-  const { book, onUpdate } = props;
+  const { book } = props;
   const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
   // 2. Ciclo de vida.
@@ -24,7 +22,7 @@ export function Buttons(props: UpdatesButtonsProps) {
   const onDelete = async () => {
     try {
       setIsDeleting(true);
-      await deleteBook(book.bookID).then((res) => {
+      await deleteBook(book.bookID).then(() => {
         toast.success("Libro eliminado correctamente");
       })
       navigate({ to: "/dashboard" });
@@ -34,6 +32,11 @@ export function Buttons(props: UpdatesButtonsProps) {
       setIsDeleting(false);
     }
   };
+
+  const onUpdate = (updatedBook: Book) => {
+    navigate.call({ to: `/dashboard/book/${updatedBook.bookID}` }, { replace: true });
+  }
+
   // 4. Render.
   return (
     <div className="flex flex-row gap-2">

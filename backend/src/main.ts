@@ -4,6 +4,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { env } from './config/env';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { setupDoc } from './app.swagger';
+import { join } from 'path';
 
 async function bootstrap(): Promise<void> {
   const logger = new Logger('main');
@@ -26,6 +27,10 @@ async function bootstrap(): Promise<void> {
       'User-Agent',
       'x-api-key',
     ],
+  });
+
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads/',
   });
 
   // -- Running.
