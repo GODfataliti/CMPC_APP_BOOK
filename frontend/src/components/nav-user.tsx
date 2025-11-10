@@ -33,7 +33,7 @@ import { sessionStore, userStore } from "@/stores"
 export function NavUser() {
   // 1. Manejo del estado.
   const { isMobile } = useSidebar();
-  const { removeUser, name } = userStore();
+  const { removeUser, username } = userStore();
   const { removeSession } = sessionStore();
   const navigate = useNavigate();
 
@@ -52,11 +52,8 @@ export function NavUser() {
   }
 
   const mappingAvatar = () => {
-    const avatarName: string = name ?? "Joe Doe";
+    const avatarName: string = username || "USUARIO DESCONOCIDO";
 
-    // if (imageURL) {
-    //   return <AvatarImage src={imageURL} alt={name} />
-    // }
     const initials = avatarName
       .split(" ")
       .slice(0, 2)
@@ -81,7 +78,7 @@ export function NavUser() {
                 {mappingAvatar()}
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{name}</span>
+                <span className="truncate font-semibold">{username}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -98,7 +95,7 @@ export function NavUser() {
                   {mappingAvatar()}
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{name}</span>
+                  <span className="truncate font-semibold">{username}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -106,7 +103,7 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link to='/dashboard/account' preload={false}>
+                <Link to='/dashboard' preload={false} disabled={true}>
                   <BadgeCheck />
                   <p>Mi cuenta</p>
                 </Link>

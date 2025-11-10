@@ -17,12 +17,12 @@ export function Detail(props: DetailProps) {
       <Separator className="my-1" />
 
       <div className="text-sm space-y-1">
-        <p><span className="font-semibold">Autor:</span> {book.author_id}</p>
-        <p><span className="font-semibold">Editorial:</span> {book.publisher_id ?? "No especificado"}</p>
-        <p><span className="font-semibold">Categorías:</span> {book.category_id ?? "Sin categorías"}</p>
-        {/* <p><span className="font-semibold">Páginas:</span> {book.pages ?? "-"}</p> */}
+        <p><span className="font-semibold">Autor:</span> {book.authorID}</p>
+        <p><span className="font-semibold">Editorial:</span> {book.publisherID ?? "No especificado"}</p>
+        <p><span className="font-semibold">Categorías:</span> {book.categoryID ?? "Sin categorías"}</p>
+        <p><span className="font-semibold">Páginas:</span> {book.page ?? "-"}</p>
         <p><span className="font-semibold">Precio:</span> {book.price ? `$${book.price}` : "No definido"}</p>
-        {/* <p><span className="font-semibold">Stock:</span> {book.stock ?? 0}</p> */}
+        <p><span className="font-semibold">Stock:</span> {book.stock ?? 0}</p>
         <p>
           <span className="font-semibold">Disponibilidad:</span>{" "}
           <span

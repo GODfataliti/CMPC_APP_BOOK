@@ -91,7 +91,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="sm" disabled={true}>
-                  <Link to='/dashboard/support' viewTransition={true} preload={false}>
+                  <Link to='/dashboard' viewTransition={true} preload={false}>
                     <LifeBuoy />
                     <span>Soporte</span>
                   </Link>

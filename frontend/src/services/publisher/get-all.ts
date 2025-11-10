@@ -1,32 +1,40 @@
-import type { BookDetail, Option } from "@/types";
-import { VITE_API_URL } from "@/config";
-import { sessionStore } from "@/stores";
+import type { Option } from '@/types'
+import { VITE_API_URL } from '@/config'
+import { sessionStore } from '@/stores'
 
 export async function getAllPublishers(): Promise<any> {
   try {
-    const { token } = sessionStore.getState();
+    const { token } = sessionStore.getState()
 
     const options: RequestInit = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    };
+    }
 
-    // const response: any = await fetch(`${VITE_API_URL}/publishers/all`, options)
-    //   .then((res) => res.json());
+    const response: any = await fetch(
+      `${VITE_API_URL}api/publishers/all`,
+      options,
+    ).then((res) => res.json())
 
-    // if (response.status >= 400) {
-    //   throw new Error(response.GLOSADESC ? response.GLOSADESC : 'Problemas al obtener la información del libro');
-    // }
+    if (response.status >= 400) {
+      throw new Error(
+        response.GLOSADESC
+          ? response.GLOSADESC
+          : 'Problemas al obtener la información del libro',
+      )
+    }
 
-    // return response.data;
-
+    return response.data
   } catch (err: unknown) {
-    console.error(err);
-    throw { message: 'Ocurrio un error al obtener las editoriales, intente de nuevo.', status: 500 }
+    console.error(err)
+    throw {
+      message: 'Ocurrio un error al obtener las editoriales, intente de nuevo.',
+      status: 500,
+    }
   }
 }
 
@@ -35,12 +43,12 @@ export async function getPublishers(): Promise<Array<Option>> {
     setTimeout(
       () =>
         resolve([
-          { value: "nova", label: "Nova" },
-          { value: "minotauro", label: "Minotauro" },
-          { value: "planeta", label: "Editorial Planeta" },
-          { value: "b-de-books", label: "B de Books" },
+          { value: 'nova', label: 'Nova' },
+          { value: 'minotauro', label: 'Minotauro' },
+          { value: 'planeta', label: 'Editorial Planeta' },
+          { value: 'b-de-books', label: 'B de Books' },
         ]),
-      600
-    )
-  );
+      600,
+    ),
+  )
 }

@@ -1,7 +1,8 @@
 export interface Category {
-  category_id: string;
-  name: string;
-  description: string;
-  created_at?: string;
-  updated_at?: string;
+  categoryID: string
+  name: string
+  description: string
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }

@@ -1,8 +1,8 @@
-
 export interface User {
-  user_id: string;
-  username: string;
-  email: string;
-  createdAt?: string;
-  updatedAt?: string;
+  userID: string
+  username: string
+  email: string
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }

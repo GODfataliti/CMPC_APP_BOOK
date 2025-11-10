@@ -37,7 +37,7 @@ export default function BookCard(props: Props) {
   const onDetailBook = () => {
     try {
       navigate({
-        to: `/dashboard/book/${book?.book_id}`,
+        to: `/dashboard/book/${book?.bookID}`,
         viewTransition: {
           types: ['container-form'],
         },
@@ -71,11 +71,12 @@ export default function BookCard(props: Props) {
             <div>
               <p className="text-sm opacity-50">Detalles</p>
               <div className="flex flex-col items-start justify-start gap-1 flex-wrap">
-                <p className="font-semibold text-xs md:text-sm">Autor: {book?.author_id}</p>
-                <p className="font-semibold text-xs md:text-sm">Editorial: {book?.publisher_id}</p>
+                <p className="font-semibold text-xs md:text-sm">Autor: {book?.authorID}</p>
+                <p className="font-semibold text-xs md:text-sm">Editorial: {book?.publisherID}</p>
                 {/* <p className="font-semibold text-xs md:text-sm">ISBN: {book?.ISBN}</p> */}
                 {/* <p className="font-semibold text-xs md:text-sm">Año de lanzamiento: {book?.release}</p> */}
-                <p className="font-semibold text-xs md:text-sm">Generos: {book?.category_id}</p>
+                <p className="font-semibold text-xs md:text-sm">Generos: {book?.categoryID}</p>
+                <p className="font-semibold text-xs md:text-sm">Paginas: {book?.page}</p>
                 <p className="font-semibold text-xs md:text-sm">Precio: {book?.price}</p>
                 <Badge variant="default" className={`h-6 select-none pointer-events-none items-center ${statusBg} hover:bg-inherit hover:cursor-default`}>
                   <p className="text-xs items-center">{book?.availability ? 'Disponible' : 'Agotado'}</p>
@@ -85,7 +86,7 @@ export default function BookCard(props: Props) {
 
             <div>
               <p className="text-sm opacity-50">Ultima modificación</p>
-              <p className="font-semibold text-xs md:text-md">{book?.updated_at}</p>
+              <p className="font-semibold text-xs md:text-md">{book?.updatedAt ? new Date(book.updatedAt).toLocaleString() : '-'}</p>
             </div>
           </div>
         </div>

@@ -12,10 +12,10 @@ import { getBooksByParams } from "@/services/book";
 
 export function BookRequested() {
   // 1. Manejo de estado.
-  const { loadRequested, loadParams, page } = booksStore();
+  const { loadRequested, loadParams } = booksStore();
   const [isAdvancedSearch, setIsAdvancedSearch] = useState<boolean>(false);
   const { isLoading } = useRouterState();
-  const [disabled, setDisabled] = useState<boolean>(false);
+  // const [disabled, setDisabled] = useState<boolean>(false);
   const [globalSearch, setGlobalSearch] = useState<string>('');
   const [advanceSearch, setAdvanceSearch] = useState<SearchBook>({
     title: '',
@@ -41,12 +41,12 @@ export function BookRequested() {
       publisher: advanceSearch.publisher,
       available: advanceSearch.available,
     }
-    setDisabled(false);
+    // setDisabled(false);
     loadParams(search.general ?? '', search.title ?? '', search.category ?? '', search.author ?? '', search.publisher ?? '', search.available ?? null, search.isAdvanceSearch ?? false);
     await getBooksByParams(search).then((res) => {
       loadRequested(res.books, res.page, res.pages);
     }).finally(() => {
-      setDisabled(false);
+      // setDisabled(false);
     })
   }
   
@@ -149,7 +149,7 @@ export function BookRequested() {
             className="flex items-center gap-2"
             // disabled={(!disabled)}
           >
-            <Search className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
+            <Search className={`w-4 h-4`} />
             Buscar
           </Button>
         </div>

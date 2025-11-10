@@ -1,7 +1,8 @@
 export interface Author {
-  author_id: string;
-  name: string;
-  description?: string;
-  created_at?: string;
-  updated_at?: string;  
+  authorID: string
+  name: string
+  description: string
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date | null
 }
