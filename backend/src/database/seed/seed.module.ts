@@ -13,6 +13,6 @@ import { Book } from 'src/modules/books/book.model';
 @Module({
   imports: [SequelizeModule.forFeature([Author, Book, Publisher, Category])],
   providers: [SeedService, AuthorSeed, PublisherSeed, CategorySeed, BookSeed],
-  exports: [SeedService],
+  exports: [SequelizeModule, SeedService],
 })
 export class SeedModule {}

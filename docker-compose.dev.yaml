@@ -19,27 +19,27 @@ services:
   # * ------------------------------
   # *   Frontend
   # * ------------------------------
-  # books-app:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: books-app
-  #   ports:
-  #     - "${FRONTEND_PORT}:3174"
-  #   networks:
-  #     - cmpc-net
-  #   volumes:
-  #     - ./frontend/src:/usr/src/app/src
-  #   command: npm run dev
-  #   develop:
-  #     watch:
-  #       - action: sync
-  #         path: ./frontend/src
-  #         target: /usr/src/app/src
-  #         ignore:
-  #           - node_modules
-  #   environment:
-  #     - PORT=${FRONTEND_PORT}
+  books-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: books-app
+    ports:
+      - "${FRONTEND_PORT}:3174"
+    networks:
+      - cmpc-net
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+    command: npm run dev
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend/src
+          target: /usr/src/app/src
+          ignore:
+            - node_modules
+    environment:
+      - PORT=${FRONTEND_PORT}
 
   # * ------------------------------
   # *   API Books
