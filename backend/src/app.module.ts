@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthModule } from './modules/auth/auth.module';
 import { BookModule } from './modules/books/book.module';
@@ -7,6 +7,8 @@ import { AuthorModule } from './modules/authors/author.module';
 import { PublisherModule } from './modules/publishers/publisher.module';
 import { CategoryModule } from './modules/categories/category.module';
 import { env } from './config/env';
+import { SeedModule } from './database/seed/seed.module';
+import { SeedService } from './database/seed/seed.service';
 
 @Module({
   imports: [
@@ -23,6 +25,9 @@ import { env } from './config/env';
       timezone: '-03:00', // Chile
     }),
 
+    // -- Seed.
+    SeedModule,
+
     // -- Business.
     AuthModule,
     AuthorModule,
@@ -34,4 +39,10 @@ import { env } from './config/env';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(private readonly seedService: SeedService) {}
+
+  async onModuleInit() {
+    await this.seedService.runAll();
+  }
+}

@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Book } from '../books/book.model';
 
 interface IAuthorDetails {
   authorID: string;
@@ -14,7 +15,7 @@ export type AuthorInputData = Omit<IAuthorDetails, 'authorID'>;
 @Table({
   tableName: 'authors',
   timestamps: true,
-  paranoid: true,
+  paranoid: true, // 🔊 Radiohead - Paranoid android.
 })
 export class Author extends Model<IAuthorDetails, AuthorInputData> {
   @Column({
@@ -35,6 +36,9 @@ export class Author extends Model<IAuthorDetails, AuthorInputData> {
     allowNull: false,
   })
   description: string;
+
+  @HasMany(() => Book)
+  books: Book[];
 
   /*
     @dev-note:

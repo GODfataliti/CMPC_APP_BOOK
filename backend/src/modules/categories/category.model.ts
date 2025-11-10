@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Book } from '../books/book.model';
 
 interface ICategoryDetails {
   categoryID: string;
@@ -14,7 +15,7 @@ export type CategoryInputData = Omit<ICategoryDetails, 'categoryID'>;
 @Table({
   tableName: 'categories',
   timestamps: true,
-  paranoid: true,
+  paranoid: true, // 🔊 Radiohead - Paranoid android.
 })
 export class Category extends Model<ICategoryDetails, CategoryInputData> {
   @Column({
@@ -35,4 +36,7 @@ export class Category extends Model<ICategoryDetails, CategoryInputData> {
     allowNull: false,
   })
   description: string;
+
+  @HasMany(() => Book)
+  books: Book[];
 }

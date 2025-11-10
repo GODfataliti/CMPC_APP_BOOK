@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Book } from '../books/book.model';
 
 interface IPublisherDetails {
   publisherID: string;
@@ -28,4 +29,7 @@ export class Publisher extends Model<Publisher, PublisherInputData> {
     allowNull: false,
   })
   name: string;
+
+  @HasMany(() => Book)
+  books: Book[];
 }
