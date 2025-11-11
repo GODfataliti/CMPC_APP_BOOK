@@ -11,13 +11,14 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { BookService } from './book.service';
 import { IsUUIDPipe } from '../../pipes';
 import type { Request, Response } from 'express';
 import { CreateBookDTO, GetBooksQueryDTO, UpdateBookDTO } from './DTOs';
 
 @ApiTags('Books')
+@ApiBearerAuth('jwt-auth')
 @Controller('book')
 export class BookController {
   constructor(private readonly service: BookService) {}

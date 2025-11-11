@@ -14,7 +14,9 @@ import { CreatePublisherDTO, UpdatePublisherDTO } from './DTOs';
 import { PublisherService } from './publisher.service';
 import { IsUUIDPipe } from '../../pipes';
 import { Publisher } from './publisher.model';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('jwt-auth')
 @Controller('publishers')
 export class PublisherController {
   constructor(private readonly service: PublisherService) {}

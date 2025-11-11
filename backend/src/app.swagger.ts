@@ -10,6 +10,17 @@ const builder = new DocumentBuilder()
     'https://www.linkedin.com/in/fatalitigonzalezjose/',
     'gonzalez.gi.jose@gmail.com',
   )
+  .addBearerAuth(
+    {
+      type: 'http',
+      in: 'header',
+      name: 'Authorization',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      description: 'JWT Bearer token needed to access the endpoints',
+    },
+    'jwt-auth',
+  )
   .build();
 
 const document = (app: INestApplication) =>

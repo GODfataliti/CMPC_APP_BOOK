@@ -9,7 +9,7 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthorService } from './author.service';
 import { IsUUIDPipe } from '../../pipes';
 import { CreateAuthorDTO, UpdateAuthorDTO } from './DTOs/';
@@ -17,6 +17,7 @@ import { Author } from './author.model';
 import type { Response } from 'express';
 
 @ApiTags('Authors')
+@ApiBearerAuth('jwt-auth')
 @Controller('authors')
 export class AuthorController {
   constructor(private readonly service: AuthorService) {}

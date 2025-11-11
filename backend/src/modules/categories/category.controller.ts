@@ -15,7 +15,9 @@ import { Category } from './category.model';
 import { IsUUIDPipe } from '../../pipes';
 import { CreateCategoryDTO, UpdateCategoryDTO } from './DTOs';
 import type { Response } from 'express';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('jwt-auth')
 @Controller('categories')
 export class CategoryController {
   private readonly logger: Logger = new Logger(CategoryController.name);

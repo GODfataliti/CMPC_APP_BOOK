@@ -10,8 +10,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import type { Response } from 'express';
 import { UploadsService } from './uploads.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth('jwt-auth')
 @ApiTags('Uploads')
 @Controller('upload')
 export class UploadsController {
