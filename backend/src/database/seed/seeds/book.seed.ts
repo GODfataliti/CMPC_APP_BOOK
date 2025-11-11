@@ -148,17 +148,6 @@ export class BookSeed {
         availability: true,
       },
       {
-        title: 'Warcross',
-        authorID: JRR_Tolkien,
-        publisherID: Minotauro,
-        categoryID: FantasyCategory,
-        coverImage: 'https://images.isbndb.com/covers/6389103482330.jpg',
-        page: 1007,
-        stock: 10,
-        price: 20990,
-        availability: true,
-      },
-      {
         title: 'Las Dos Torres',
         authorID: JRR_Tolkien,
         publisherID: Minotauro,
