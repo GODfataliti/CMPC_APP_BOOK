@@ -30,6 +30,7 @@ services:
       - cmpc-net
     environment:
       - NODE_ENV=production
+      - VITE_API_URL=${API_URL}
 
   # * ------------------------------
   # *   API Books
