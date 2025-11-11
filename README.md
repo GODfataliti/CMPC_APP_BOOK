@@ -22,6 +22,8 @@ Copiar el archivo `.env.template` a `.env` y completar las variables de entorno 
 ```bash
   # Copiar el archivo de plantilla de variables de entorno
   $cp .env.template .env
+  o
+  $copy .env.template .env
 ```
 
 Correr el proyecto en base al archivo `docker-compose.yaml`:
