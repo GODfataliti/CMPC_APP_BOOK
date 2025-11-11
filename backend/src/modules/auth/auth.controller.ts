@@ -5,18 +5,23 @@ import {
   Logger,
   Post,
   Put,
+  Req,
   Res,
 } from '@nestjs/common';
 import { LoginDTO, RegisterDTO } from './DTOs';
 import type { Response } from 'express';
 import { AuthService } from './auth.service';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
   private readonly logger: Logger = new Logger(AuthController.name);
 
   constructor(private readonly service: AuthService) {}
-
+  @ApiOperation({
+    summary: 'Register a new user',
+    description: 'Creates a new user with the provided email and username.',
+  })
   @Post('register')
   async register(@Body() body: RegisterDTO, @Res() res: Response) {
     try {
@@ -42,6 +47,10 @@ export class AuthController {
     }
   }
 
+  @ApiOperation({
+    summary: 'Login',
+    description: '',
+  })
   @Post('login')
   async login(@Body() body: LoginDTO, @Res() res: Response) {
     try {
@@ -70,6 +79,29 @@ export class AuthController {
   @Post('logout')
   logout() {}
 
-  @Put('verify-token')
-  verifyToken() {}
+  @Post('verify-token')
+  async verifyToken(@Body() body: { token?: string }, @Res() res: Response) {
+    try {
+      if (!body?.token) {
+        return res.status(HttpStatus.BAD_REQUEST).send({
+          status: HttpStatus.BAD_REQUEST,
+          GLOSADESC: 'Token missing',
+        });
+      }
+
+      const decodedUser = await this.service.verifyToken(body.token);
+
+      res.status(HttpStatus.OK).send({
+        status: HttpStatus.OK,
+        message: 'Token is valid',
+        data: decodedUser,
+      });
+    } catch (err: unknown) {
+      this.logger.error(err);
+      res.status(HttpStatus.UNAUTHORIZED).send({
+        status: HttpStatus.UNAUTHORIZED,
+        GLOSADESC: 'Invalid or expired token',
+      });
+    }
+  }
 }

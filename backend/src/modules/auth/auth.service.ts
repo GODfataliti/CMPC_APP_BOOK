@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { LoginDTO, RegisterDTO } from './DTOs';
 import { UserService } from '../users/user.service';
 import { User } from '../users/user.model';
@@ -62,5 +62,19 @@ export class AuthService {
     const token: string = await this.secure.generateToken(safeUser);
 
     return { token, safeUser };
+  }
+
+  async verifyToken(token: string): Promise<SafeUser> {
+    try {
+      const decoded = await this.secure.verifyToken(token);
+      if (!decoded) {
+        throw new UnauthorizedException('Invalid token');
+      }
+
+      return decoded as SafeUser;
+    } catch (err: unknown) {
+      this.logger.error(err);
+      throw new UnauthorizedException('Invalid or expired token');
+    }
   }
 }

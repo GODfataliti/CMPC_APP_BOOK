@@ -1,11 +1,11 @@
-import type { Session } from '@/types'
+import type { SafeUser } from '@/types'
 import type { VerifySessionResponse } from './types/'
 import { VITE_API_URL } from '@/config'
 
-export async function verifySession(sessionID: string): Promise<Session> {
+export async function verifySession(token: string): Promise<SafeUser> {
   try {
     const payload = {
-      sessionID,
+      token,
     }
     const options: RequestInit = {
       method: 'POST',
@@ -16,7 +16,7 @@ export async function verifySession(sessionID: string): Promise<Session> {
       body: JSON.stringify(payload),
     }
     const response: VerifySessionResponse = await fetch(
-      `${VITE_API_URL}api/auth/verify-session`,
+      `${VITE_API_URL}api/auth/verify-token`,
       options,
     )
       .then((res) => res.json())

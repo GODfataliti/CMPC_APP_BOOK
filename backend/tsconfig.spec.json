@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc/spec",
+    "module": "commonjs",
+    "target": "es2017",
+    "types": ["node", "jest"],
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "test/**/*.spec.ts",
+    "test/**/*.e2e-spec.ts"
+  ]
+}

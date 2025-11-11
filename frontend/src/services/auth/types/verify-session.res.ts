@@ -1,9 +1,9 @@
-import type { Session } from "@/types";
+import type { SafeUser } from '@/types'
 
 export interface VerifySessionResponse {
-  data: Session;
-  ERRORCODE: number;
-  GLOSADESC: string;
-  status: number;
-  timestamp: string;
+  data: SafeUser
+  ERRORCODE: number
+  GLOSADESC: string
+  status: number
+  timestamp: string
 }
