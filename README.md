@@ -35,6 +35,7 @@ Credenciales por defecto:
 - User: admin@cmpc.com
 - Password: asd123
 
+Documentado con Swagger, para acceder tienes que ingresar a: http://{LOCALHOST/IP};{PORT}/docs
 
 En caso de querer detener los contenedores
 
